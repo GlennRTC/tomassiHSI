@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tomassi Health Systems Integration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Barlow+Condensed:wght@700&family=Barlow:wght@400&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#FFFFFF;
@@ -12,15 +15,21 @@
     --line:#DFE5EA;
     --ink:#132537;
     --ink-dim:#4E5D6C;
-    --ink-mute:#8B98A5;
+    --ink-mute:#5F6B75;
     --signal:#B45309;
     --signal-dim:#F1E4D3;
     --primary:#0B5C8C;
     --primary-dim:#E5EFF5;
+    --teal:#0B6B76;
+    --teal-dim:#E3F1F2;
+    --green:#1B7A43;
+    --green-dim:#E5F3E9;
+    --accent:var(--primary);
+    --accent-dim:var(--primary-dim);
     --data:#0B5C8C;
-    --serif:'Iowan Old Style','Palatino Linotype',Georgia,serif;
+    --serif:'IBM Plex Serif','Iowan Old Style','Palatino Linotype',Georgia,serif;
     --mono:'IBM Plex Mono','SF Mono',Menlo,Consolas,monospace;
-    --sans:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+    --sans:'IBM Plex Sans',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -32,7 +41,26 @@
     -webkit-font-smoothing:antialiased;
   }
   a{color:inherit; text-decoration:none;}
-  .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
+  .wrap{max-width:1340px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- SECTION GRID (asymmetric margin/content layout) ---------- */
+  .section-grid{
+    display:grid; grid-template-columns:minmax(180px,260px) 1fr; gap:56px;
+  }
+  .margin-col{padding-top:4px;}
+  .margin-col .section-label{margin-bottom:10px;}
+  .content-col{min-width:0;}
+
+  /* ---------- CARDS ---------- */
+  .card{
+    background:var(--bg); border:1px solid var(--line); border-radius:6px;
+    padding:24px; box-shadow:0 1px 2px rgba(19,37,55,0.04);
+    transition:box-shadow .15s ease, border-color .15s ease;
+  }
+  .card:hover{box-shadow:0 6px 16px rgba(19,37,55,0.08); border-color:#C7D2DB;}
+  .card-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media (max-width:860px){.card-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.card-grid{grid-template-columns:1fr;}}
 
   /* ---------- HEADER ---------- */
   header{
@@ -50,27 +78,32 @@
     color:var(--ink);
   }
   .wordmark b{color:var(--primary); font-weight:600;}
+  .nav-right{display:flex; align-items:center; gap:24px;}
   .navlinks{display:flex; gap:28px; font-size:13px; color:var(--ink-dim);}
   .navlinks a:hover{color:var(--primary);}
+  .nav-icon{color:var(--ink-dim); display:flex; align-items:center;}
+  .nav-icon:hover{color:var(--primary);}
 
   /* ---------- HERO ---------- */
-  .hero{padding:72px 0 56px; border-bottom:1px solid var(--line);}
-  .eyebrow{
-    font-family:var(--mono); font-size:11px; color:var(--ink-mute);
-    letter-spacing:0.03em; margin-bottom:22px;
-    white-space:nowrap; overflow-x:auto;
-    background:var(--bg-panel); border:1px solid var(--line);
-    display:inline-block; padding:6px 10px; border-radius:2px;
+  .hero{padding:72px 0 40px; border-bottom:none;}
+  .hero-stat{margin-bottom:24px;}
+  .hero-stat:last-child{margin-bottom:0;}
+  .hero-stat-num{
+    display:block; font-family:var(--serif); font-size:26px;
+    color:var(--primary); line-height:1;
+  }
+  .hero-stat-label{
+    display:block; font-size:11.5px; color:var(--ink-dim);
+    margin-top:4px; max-width:150px; line-height:1.4;
   }
   .hero h1{
     font-family:var(--serif); font-weight:400;
-    font-size:clamp(32px,5vw,48px);
-    line-height:1.15; letter-spacing:-0.01em;
-    max-width:620px; color:var(--ink);
+    font-size:clamp(36px,6vw,58px);
+    line-height:1.12; letter-spacing:-0.01em;
+    max-width:760px; color:var(--ink);
   }
-  .hero h1 em{font-style:normal; color:var(--primary);}
   .hero p.lede{
-    margin-top:22px; max-width:520px;
+    margin-top:22px; max-width:640px;
     color:var(--ink-dim); font-size:16px; line-height:1.6;
   }
   .hero-cta{
@@ -90,90 +123,161 @@
 
   /* ---------- SECTION LABEL ---------- */
   .section-label{
-    font-family:var(--mono); font-size:11px; color:var(--ink-mute);
+    font-family:var(--mono); font-size:14px; font-weight:600; color:var(--accent);
     letter-spacing:0.08em; text-transform:uppercase;
     margin-bottom:8px;
   }
   section{padding:56px 0; border-bottom:1px solid var(--line);}
+  section.dense{padding:40px 0;}
+  #casos{--accent:var(--teal); --accent-dim:var(--teal-dim); background:var(--teal-dim);}
+  #servicios{background:var(--primary-dim);}
+  #enfoque{--accent:var(--green); --accent-dim:var(--green-dim); background:var(--green-dim);}
+  section.about{--accent:var(--green); --accent-dim:var(--green-dim);}
   h2.section-title{
     font-family:var(--serif); font-weight:400; font-size:26px;
-    margin-bottom:34px; color:var(--ink);
+    margin-bottom:22px; color:var(--ink);
   }
 
-  /* ---------- SERVICES ---------- */
-  .service{
-    display:grid; grid-template-columns:56px 1fr; gap:18px;
-    padding:22px 0; border-top:1px solid var(--line);
+  /* ---------- CHIP (functional ledger) ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:10.5px;
+    color:var(--ink-dim); border:1px solid var(--line);
+    padding:4px 9px; border-radius:2px; letter-spacing:0.01em;
   }
-  .service:first-of-type{border-top:none;}
-  .service-num{
-    font-family:var(--mono); color:var(--primary); font-size:13px; padding-top:3px; opacity:0.55;
+  .chip .k{color:var(--ink-mute);}
+  .chip .v{color:var(--accent); font-weight:600;}
+  .chip.status-live{background:var(--signal-dim); border-color:var(--signal-dim);}
+  .chip.status-live .v{color:#8F4207;}
+
+  /* ---------- SERVICES (UML-style diagram) ---------- */
+  .uml-diagram{
+    display:grid; grid-template-columns:1fr 48px 1fr; align-items:stretch;
   }
-  .service h3{
-    font-size:17px; font-weight:600; margin-bottom:6px; color:var(--ink);
+  .uml-box{
+    background:var(--bg); border:1.5px solid var(--ink); border-radius:2px;
+    display:flex; flex-direction:column; overflow:hidden;
   }
-  .service p{color:var(--ink-dim); font-size:14.5px; line-height:1.6; max-width:520px;}
-  .service .tag{
-    display:inline-block; margin-top:10px; font-family:var(--mono);
-    font-size:10.5px; color:var(--primary); background:var(--primary-dim);
+  .uml-header{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.1em;
+    text-transform:uppercase; color:#fff; background:var(--accent);
+    padding:10px 16px; border-bottom:1.5px solid var(--ink);
+  }
+  .uml-row{
+    display:grid; grid-template-columns:26px 1fr; gap:10px;
+    padding:18px 16px; border-top:1px solid var(--line);
+    opacity:0; transform:translateY(10px);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .uml-row:first-of-type{border-top:none;}
+  .uml-row.in-view{opacity:1; transform:translateY(0);}
+  .uml-row:nth-of-type(2){transition-delay:.08s;}
+  .uml-row:nth-of-type(3){transition-delay:.16s;}
+  .uml-op{font-family:var(--mono); color:var(--accent); font-size:12px; opacity:0.6; padding-top:1px;}
+  .uml-row h3{font-size:15.5px; font-weight:600; margin-bottom:6px; color:var(--ink);}
+  .uml-row p{color:var(--ink-dim); font-size:13.5px; line-height:1.6;}
+  .tag{
+    display:inline-block; font-family:var(--mono);
+    font-size:10.5px; color:var(--accent); background:var(--accent-dim);
     padding:4px 9px; border-radius:2px; border:none;
   }
+  .uml-row .tag{margin-top:12px;}
+  .uml-link{width:48px; height:2px; align-self:center; overflow:visible;}
+  .uml-link line, .uml-link circle{
+    stroke:var(--accent); stroke-width:2; fill:var(--accent);
+    stroke-dasharray:100; stroke-dashoffset:100;
+    transition:stroke-dashoffset .7s ease .3s, opacity .7s ease .3s;
+    opacity:0;
+  }
+  .uml-link.in-view line, .uml-link.in-view circle{stroke-dashoffset:0; opacity:1;}
+  @media (max-width:760px){
+    .uml-diagram{grid-template-columns:1fr; gap:20px;}
+    .uml-link{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .uml-row, .uml-link line, .uml-link circle,
+    .chart-step{transition:none !important; opacity:1 !important; transform:none !important; stroke-dashoffset:0 !important;}
+  }
 
-  /* ---------- PROCESS ---------- */
-  .process{display:flex; flex-direction:column; gap:0;}
-  .step{
-    display:grid; grid-template-columns:36px 1fr; gap:16px;
-    padding:16px 0; position:relative;
+  /* ---------- PROCESS (custom project chart) ---------- */
+  .chart-wrap{max-width:100%; overflow-x:auto;}
+  .project-chart{width:100%; height:auto; display:block;}
+  @media (max-width:600px){
+    .project-chart{min-width:1100px;}
   }
-  .step-marker{
-    font-family:var(--mono); font-size:12px; color:var(--primary);
-    background:var(--primary-dim); border:none; width:28px; height:28px;
-    display:flex; align-items:center; justify-content:center;
-    border-radius:50%;
+  .chart-step{
+    opacity:0; transform:translateY(16px);
+    transition:opacity .5s ease, transform .5s ease;
   }
-  .step h4{font-size:15px; font-weight:600; margin-bottom:4px;}
-  .step p{color:var(--ink-dim); font-size:13.5px; max-width:480px;}
+  .chart-wrap.in-view .chart-step{opacity:1; transform:translateY(0);}
 
-  /* ---------- CASES (AHA-style list) ---------- */
-  .case-item{
-    padding:18px 0; border-top:1px solid var(--line);
-    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+  /* ---------- CASES (ledger log) ---------- */
+  .log-table{border-top:1px solid var(--line); margin-top:8px;}
+  .log-row{
+    display:grid; grid-template-columns:44px 1fr;
+    gap:18px;
+    padding:20px 10px; border-bottom:1px solid var(--line);
+    transition:background .15s ease;
   }
-  .case-item:first-of-type{border-top:none;}
-  .case-title{font-size:15px; color:var(--ink); font-weight:500; max-width:460px;}
-  .case-meta{
-    font-family:var(--mono); font-size:11px; color:var(--ink-mute);
-    white-space:nowrap; text-align:right;
+  .log-row:hover{background:var(--bg);}
+  .log-num{font-family:var(--mono); font-size:12px; color:var(--ink-mute); padding-top:2px;}
+  .log-main{display:flex; flex-direction:column; gap:8px;}
+  .log-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:16px; flex-wrap:wrap;
   }
-  .case-tag{
-    display:inline-block; font-family:var(--mono); font-size:10px;
-    color:var(--primary); margin-bottom:4px; letter-spacing:0.04em;
-    font-weight:600;
+  .log-title{font-size:15px; font-weight:500; color:var(--ink); line-height:1.4;}
+  .log-period{font-family:var(--mono); font-size:11px; color:var(--ink-mute); white-space:nowrap;}
+  .log-desc{font-size:13.5px; color:var(--ink-dim); line-height:1.6; max-width:640px;}
+  .log-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  @media (max-width:700px){
+    .log-row{grid-template-columns:1fr; gap:8px; padding:16px 4px;}
+    .log-num{display:none;}
   }
 
   /* ---------- ABOUT ---------- */
-  .about p{color:var(--ink-dim); font-size:15px; line-height:1.75; max-width:560px;}
-  .about strong{color:var(--ink); font-weight:600;}
+  .about-lead{
+    font-family:var(--serif); font-size:19px; line-height:1.55;
+    color:var(--ink); max-width:640px;
+  }
+  .about-tags{display:flex; flex-wrap:wrap; gap:8px; margin:20px 0;}
+  .about-note{color:var(--ink-dim); font-size:14.5px; line-height:1.7; max-width:600px;}
 
   /* ---------- CONTACT / FOOTER ---------- */
   footer{padding:56px 0 40px;}
+  footer .section-grid{margin-top:28px;}
   .contact-grid{
     display:grid; grid-template-columns:1fr 1fr; gap:24px;
-    margin-top:28px; font-size:13.5px;
+    font-size:13.5px;
   }
   .contact-grid div{color:var(--ink-dim);}
   .contact-grid a{color:var(--primary); font-weight:500;}
   .contact-grid a:hover{text-decoration:underline;}
+  .rev-tag{
+    font-family:var(--mono); font-size:10.5px; color:var(--ink-mute);
+    margin-top:22px;
+  }
+  .footer-cols{display:grid; grid-template-columns:1fr auto; gap:32px; align-items:start;}
+  .footer-links{display:flex; flex-direction:column; gap:10px; font-size:13.5px; padding-top:4px;}
+  .footer-links strong{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--ink-mute); margin-bottom:4px;
+  }
+  .footer-links a{color:var(--ink-dim);}
+  .footer-links a:hover{color:var(--primary);}
+  @media (max-width:560px){.footer-cols{grid-template-columns:1fr;}}
   .foot-bottom{
     margin-top:44px; padding-top:20px; border-top:1px solid var(--line);
     display:flex; justify-content:space-between; font-size:11.5px;
     color:var(--ink-mute); font-family:var(--mono);
   }
 
+  @media (max-width:860px){
+    .section-grid{grid-template-columns:1fr; gap:16px;}
+    .margin-col{padding-top:0;}
+  }
+
   @media (max-width:600px){
     .contact-grid{grid-template-columns:1fr;}
-    .case-item{flex-direction:column; gap:6px;}
-    .case-meta{text-align:left;}
   }
 </style>
 </head>
@@ -183,183 +287,404 @@
   <div class="wrap nav">
     <a href="#" style="display:flex; align-items:center;">
       <svg width="126" height="34" viewBox="0 0 126 34" xmlns="http://www.w3.org/2000/svg" aria-label="tomassi HSI">
-        <text x="0" y="24" font-family="'Iowan Old Style','Palatino Linotype',Georgia,serif" font-size="21" fill="#132537">tomassi</text>
-        <text x="80" y="24" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-weight="700" font-size="20" letter-spacing="0.5" fill="#0B5C8C">HSI</text>
+        <text x="0" y="24" font-family="'IBM Plex Serif','Iowan Old Style',Georgia,serif" font-size="21" fill="#132537">tomassi</text>
+        <text x="80" y="24" font-family="'IBM Plex Sans',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-weight="700" font-size="20" letter-spacing="0.5" fill="#0B5C8C">HSI</text>
       </svg>
     </a>
-    <div class="navlinks">
-      <a href="#servicios">Servicios</a>
-      <a href="#casos">Casos</a>
-      <a href="#enfoque">Enfoque</a>
-      <a href="#contacto">Contacto</a>
+    <div class="nav-right">
+      <nav class="navlinks">
+        <a href="#casos">Casos</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#enfoque">Enfoque</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a href="#" aria-label="LinkedIn" class="nav-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="3"/>
+          <line x1="7" y1="10" x2="7" y2="17"/>
+          <circle cx="7" cy="6.5" r="1.1" fill="currentColor" stroke="none"/>
+          <path d="M11 17v-4.5c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5V17"/>
+        </svg>
+      </a>
     </div>
   </div>
 </header>
 
+<main>
+
 <section class="hero">
-  <div class="wrap">
-    <div class="eyebrow">MSH|^~&amp;|TOMASSI-HSI|LATAM|LIS/HIS|CLINICAL SYSTEMS INTEGRATION</div>
-    <h1>Los sistemas de tu laboratorio<br>deberían hablar <em>el mismo idioma</em>.</h1>
-    <p class="lede">Interoperabilidad clínica, conexión de analizadores y soluciones digitales de salud — implementado en producción para laboratorios y clínicas en LATAM y Canadá. Ahora, desde Venezuela.</p>
-    <div class="hero-cta">
-      <a href="#contacto" class="btn-primary">Conversemos tu caso</a>
-      <a href="#casos" class="btn-secondary">Ver casos técnicos</a>
+  <div class="wrap section-grid">
+    <div class="margin-col">
+      <div class="hero-stat">
+        <span class="hero-stat-num">10+</span>
+        <span class="hero-stat-label">años en interoperabilidad clínica</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">3</span>
+        <span class="hero-stat-label">países con interfaces en producción</span>
+      </div>
+    </div>
+    <div class="content-col">
+      <h1>Interoperabilidad clínica y software de salud.</h1>
+      <p class="lede">Diseño, despliegue y mantenimiento de interfaces en entornos de Salud. Asesoría en integraciones, hardware e infraestructura clínica.</p>
+      <div class="hero-cta">
+        <a href="#contacto" class="btn-primary">Conversemos tu caso</a>
+        <a href="#casos" class="btn-secondary">Ver casos técnicos</a>
+      </div>
     </div>
   </div>
 </section>
 
-<section style="padding:36px 0;">
-  <div class="wrap" style="display:flex; gap:48px; flex-wrap:wrap;">
-    <div>
-      <div style="font-family:var(--serif); font-size:28px; color:var(--primary);">10+</div>
-      <div style="font-size:12.5px; color:var(--ink-dim);">años en interoperabilidad clínica</div>
+<section id="casos" class="dense">
+  <div class="wrap section-grid">
+    <div class="margin-col">
+      <div class="section-label">Casos</div>
     </div>
-    <div>
-      <div style="font-family:var(--serif); font-size:28px; color:var(--primary);">3</div>
-      <div style="font-size:12.5px; color:var(--ink-dim);">países con interfaces en producción</div>
-    </div>
-    <div>
-      <div style="font-family:var(--serif); font-size:28px; color:var(--primary);">HL7 · FHIR</div>
-      <div style="font-size:12.5px; color:var(--ink-dim);">v2, R4, ASTM — protocolos de trabajo diario</div>
+    <div class="content-col">
+      <h2 class="section-title">Proyectos recientes ejecutados.</h2>
+      <div class="log-table">
+        <div class="log-row">
+          <span class="log-num">001</span>
+          <div class="log-main">
+            <div class="log-head">
+              <span class="log-title">Motor de correlación LIS/HIS para detección de sepsis</span>
+              <span class="log-period">Colombia · 2025–2026</span>
+            </div>
+            <p class="log-desc">Middleware que cruza resultados de laboratorio y datos hospitalarios en tiempo real para generar alertas clínicas tempranas.</p>
+            <div class="log-tags">
+              <span class="tag">Mirth Connect</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">JSON</span>
+              <span class="tag">HTTP</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="log-row">
+          <span class="log-num">002</span>
+          <div class="log-main">
+            <div class="log-head">
+              <span class="log-title">Interfaz LIS → CDS con transformación de mensajes</span>
+              <span class="log-period">México · 2024–2026</span>
+            </div>
+            <p class="log-desc">Canal de integración que transforma resultados de laboratorio a formato SOAP/JSON y notifica automáticamente al sistema clínico.</p>
+            <div class="log-tags">
+              <span class="tag">Mirth Connect</span>
+              <span class="tag">SOAP</span>
+              <span class="tag">JSON</span>
+              <span class="tag">JavaScript</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="log-row">
+          <span class="log-num">003</span>
+          <div class="log-main">
+            <div class="log-head">
+              <span class="log-title">Identificación automática de pacientes con síndrome metabólico</span>
+              <span class="log-period">México · 2024–2026</span>
+            </div>
+            <p class="log-desc">Analiza resultados de laboratorio contra el historial del paciente para detectar prediabetes, diabetes y dislipidemia, y genera alertas clínicas.</p>
+            <div class="log-tags">
+              <span class="tag">Mirth Connect</span>
+              <span class="tag">HL7</span>
+              <span class="tag">XML</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="log-row">
+          <span class="log-num">004</span>
+          <div class="log-main">
+            <div class="log-head">
+              <span class="log-title">Canal HL7 a JSON con generación de estadísticas</span>
+              <span class="log-period">Colombia · 2024–2026</span>
+            </div>
+            <p class="log-desc">Procesa mensajes HL7 entrantes, los transforma a JSON para el sistema de soporte de decisiones y genera estadísticas por fase de despliegue.</p>
+            <div class="log-tags">
+              <span class="tag">Mirth Connect</span>
+              <span class="tag">HL7</span>
+              <span class="tag">JSON</span>
+              <span class="tag">JavaScript</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="log-row">
+          <span class="log-num">005</span>
+          <div class="log-main">
+            <div class="log-head">
+              <span class="log-title">Estandarización de resultados de laboratorio por episodio</span>
+              <span class="log-period">LATAM/Caribe · 2025–2026</span>
+            </div>
+            <p class="log-desc">Transforma resultados de múltiples analizadores a una estructura JSON unificada por episodio clínico, lista para consumo por sistemas de decisión.</p>
+            <div class="log-tags">
+              <span class="tag">Mirth Connect</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">JSON</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="servicios">
-  <div class="wrap">
-    <div class="section-label">Servicios</div>
-    <h2 class="section-title">Tres formas de resolver un mismo problema: sistemas que no se hablan.</h2>
-
-    <div class="service">
-      <div class="service-num">01</div>
-      <div>
-        <h3>Integración de sistemas clínicos</h3>
-        <p>Interfaces HL7v2 y FHIR entre LIS, HIS, CDS y sistemas de terceros. Diseño, construcción y mantenimiento de canales — incluyendo lógica de ruteo, transformación de mensajes y validación.</p>
-        <span class="tag">HL7 · FHIR R4 · Mirth Connect</span>
-      </div>
+<section id="servicios" class="dense">
+  <div class="wrap section-grid">
+    <div class="margin-col">
+      <div class="section-label">Servicios</div>
     </div>
+    <div class="content-col">
+      <h2 class="section-title">Tres formas de resolver un mismo problema: sistemas que no se hablan.</h2>
+      <span class="chip" style="margin-bottom:28px;"><span class="k">PROTOCOLOS::</span> <span class="v">HL7 · FHIR · ASTM · CDS HOOKS</span></span>
 
-    <div class="service">
-      <div class="service-num">02</div>
-      <div>
-        <h3>Conexión de analizadores y equipos</h3>
-        <p>Interfaces bidireccionales entre analizadores de laboratorio y el sistema central. Autovalidación, reglas de reproceso y detección de resultados críticos configuradas sobre el flujo real del laboratorio.</p>
-        <span class="tag">ASTM · Middleware · Autovalidación</span>
-      </div>
-    </div>
+      <div class="uml-diagram">
+        <div class="uml-box">
+          <div class="uml-header">Technics</div>
 
-    <div class="service">
-      <div class="service-num">03</div>
-      <div>
-        <h3>Soluciones digitales en salud</h3>
-        <p>Productos a medida cuando la interfaz estándar no alcanza — entrega de resultados vía canales del paciente, dashboards operativos, automatizaciones sobre datos clínicos.</p>
-        <span class="tag">API-first · WhatsApp · FHIR Gateway</span>
+          <div class="uml-row">
+            <span class="uml-op">01</span>
+            <div>
+              <h3>Integración de sistemas clínicos</h3>
+              <p>Interfaces HL7v2 y FHIR entre LIS, HIS, CDS y sistemas de terceros. Diseño, construcción y mantenimiento de canales — incluyendo lógica de ruteo, transformación de mensajes y validación.</p>
+              <span class="tag">HL7 · FHIR R4 · Mirth Connect</span>
+            </div>
+          </div>
+
+          <div class="uml-row">
+            <span class="uml-op">02</span>
+            <div>
+              <h3>Conexión de analizadores y equipos</h3>
+              <p>Interfaces bidireccionales entre analizadores de laboratorio y el sistema central. Autovalidación, reglas de reproceso y detección de resultados críticos configuradas sobre el flujo real del laboratorio.</p>
+              <span class="tag">ASTM · Middleware · Autovalidación</span>
+            </div>
+          </div>
+
+          <div class="uml-row">
+            <span class="uml-op">03</span>
+            <div>
+              <h3>Soluciones digitales en salud</h3>
+              <p>Productos a medida cuando la interfaz estándar no alcanza — entrega de resultados vía canales del paciente, dashboards operativos, automatizaciones sobre datos clínicos.</p>
+              <span class="tag">API-first · WhatsApp · FHIR Gateway</span>
+            </div>
+          </div>
+        </div>
+
+        <svg class="uml-link" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+          <line x1="0" y1="10" x2="100" y2="10"/>
+          <circle cx="50" cy="10" r="3"/>
+        </svg>
+
+        <div class="uml-box">
+          <div class="uml-header">Consultancy</div>
+
+          <div class="uml-row">
+            <span class="uml-op">01</span>
+            <div>
+              <h3>Diagnóstico y estrategia de interoperabilidad</h3>
+              <p>Evaluación del estado actual de integración y hoja de ruta técnica.</p>
+              <span class="tag">Assessment · Roadmap</span>
+            </div>
+          </div>
+
+          <div class="uml-row">
+            <span class="uml-op">02</span>
+            <div>
+              <h3>Evaluación de proveedores / RFP técnico</h3>
+              <p>Acompañamiento en la selección de LIS, HIS o middleware desde una mirada de integración real.</p>
+              <span class="tag">RFP · Vendor Review</span>
+            </div>
+          </div>
+
+          <div class="uml-row">
+            <span class="uml-op">03</span>
+            <div>
+              <h3>Acompañamiento a equipos internos</h3>
+              <p>Mentoría técnica puntual para equipos de TI que ya tienen un proyecto de integración en curso.</p>
+              <span class="tag">Mentoría técnica</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section id="enfoque">
-  <div class="wrap">
-    <div class="section-label">Enfoque</div>
-    <h2 class="section-title">Cómo se ejecuta un proyecto de integración.</h2>
-    <div class="process">
-      <div class="step">
-        <div class="step-marker">1</div>
-        <div>
-          <h4>Diagnóstico técnico</h4>
-          <p>Levantamiento del flujo real de datos — qué sistema habla qué protocolo, dónde se pierde información, qué reglas de negocio faltan documentar.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-marker">2</div>
-        <div>
-          <h4>Diseño de la interfaz</h4>
-          <p>Especificación de mapeo de mensajes, reglas de transformación y plan de pruebas antes de tocar producción.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-marker">3</div>
-        <div>
-          <h4>Implementación y estabilización</h4>
-          <p>Despliegue controlado, monitoreo de los primeros ciclos en vivo, ajuste de reglas según los casos reales que aparecen.</p>
-        </div>
-      </div>
+  <div class="wrap section-grid">
+    <div class="margin-col">
+      <div class="section-label">Enfoque</div>
+    </div>
+    <div class="content-col">
+      <h2 class="section-title">Cómo se ejecuta un proyecto de integración.</h2>
     </div>
   </div>
-</section>
-
-<section id="casos">
   <div class="wrap">
-    <div class="section-label">Casos</div>
-    <h2 class="section-title">Proyectos ejecutados.</h2>
+      <div class="chart-wrap">
+        <svg class="project-chart" viewBox="0 0 1600 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flujo de un proyecto: Iniciación, Planificación, Diseño, Ejecución, Pruebas, Cierre">
+          <title>Flujo de un proyecto: Iniciación, Planificación, Diseño, Ejecución, Pruebas, Cierre</title>
 
-    <div class="case-item">
-      <div>
-        <div class="case-tag">CASO · LIS → LABORATORIO</div>
-        <div class="case-title">Interfaz de resultados para laboratorio multi-sede en tres ciudades</div>
-      </div>
-      <div class="case-meta">LATAM<br>2025–2026</div>
-    </div>
+          <g class="chart-step">
+            <rect x="40" y="368" width="253.28" height="64" fill="#597ea3"></rect>
+            <text x="273.28" y="409" text-anchor="end" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="32" fill="#fff">01</text>
+            <circle cx="96" cy="368" r="36" style="fill:var(--accent-dim)" stroke="#416180" stroke-width="1.5"></circle>
+            <svg x="74.4" y="346.4" width="43.2" height="43.2" viewBox="0 0 24 24" fill="none" stroke="#416180" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" x2="4" y1="22" y2="15"></line></svg>
+            <text x="56" y="476" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="22" style="fill:var(--ink); text-transform:uppercase">Iniciación</text>
+            <text x="56" y="504" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">Relevamiento del flujo real de datos</text>
+            <text x="56" y="524" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">entre LIS, HIS y sistemas de terceros</text>
+          </g>
 
-    <div class="case-item">
-      <div>
-        <div class="case-tag">CASO · HIS API</div>
-        <div class="case-title">Canal de integración por polling con lógica de ruteo por especialidad</div>
-      </div>
-      <div class="case-meta">LATAM<br>2026</div>
-    </div>
+          <g class="chart-step" style="transition-delay:.08s">
+            <rect x="293.28" y="368" width="253.28" height="64" fill="#2c455d"></rect>
+            <text x="526.56" y="409" text-anchor="end" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="32" fill="#fff">02</text>
+            <circle cx="349.28" cy="432" r="36" style="fill:var(--accent-dim)" stroke="#416180" stroke-width="1.5"></circle>
+            <svg x="327.68" y="410.4" width="43.2" height="43.2" viewBox="0 0 24 24" fill="none" stroke="#416180" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <text x="309.28" y="268" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="22" style="fill:var(--ink); text-transform:uppercase">Planificación</text>
+            <text x="309.28" y="296" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">Se define el alcance de la interfaz</text>
+            <text x="309.28" y="316" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">y el mapeo de mensajes HL7 o FHIR</text>
+            <text x="309.28" y="336" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">necesarios en el proyecto</text>
+          </g>
 
-    <div class="case-item">
-      <div>
-        <div class="case-tag">CASO · MENSAJERÍA CLÍNICA</div>
-        <div class="case-title">Alertas de resultados críticos vía WhatsApp Business con verificación de duplicados</div>
+          <g class="chart-step" style="transition-delay:.16s">
+            <rect x="546.72" y="368" width="253.28" height="64" fill="#597ea3"></rect>
+            <text x="780" y="409" text-anchor="end" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="32" fill="#fff">03</text>
+            <circle cx="602.72" cy="368" r="36" style="fill:var(--accent-dim)" stroke="#416180" stroke-width="1.5"></circle>
+            <svg x="581.12" y="346.4" width="43.2" height="43.2" viewBox="0 0 24 24" fill="none" stroke="#416180" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg>
+            <text x="562.72" y="476" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="22" style="fill:var(--ink); text-transform:uppercase">Diseño</text>
+            <text x="562.72" y="504" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">Se especifica el mapeo de campos y</text>
+            <text x="562.72" y="524" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">las reglas de transformación</text>
+          </g>
+
+          <g class="chart-step" style="transition-delay:.24s">
+            <rect x="800" y="368" width="253.28" height="64" fill="#2c455d"></rect>
+            <text x="1033.28" y="409" text-anchor="end" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="32" fill="#fff">04</text>
+            <circle cx="856" cy="432" r="36" style="fill:var(--accent-dim)" stroke="#416180" stroke-width="1.5"></circle>
+            <svg x="834.4" y="410.4" width="43.2" height="43.2" viewBox="0 0 24 24" fill="none" stroke="#416180" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
+            <text x="816" y="268" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="22" style="fill:var(--ink); text-transform:uppercase">Ejecución</text>
+            <text x="816" y="296" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">Se construye y despliega la interfaz</text>
+            <text x="816" y="316" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">de forma controlada en producción</text>
+          </g>
+
+          <g class="chart-step" style="transition-delay:.32s">
+            <rect x="1053.28" y="368" width="253.28" height="64" fill="#597ea3"></rect>
+            <text x="1286.56" y="409" text-anchor="end" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="32" fill="#fff">05</text>
+            <circle cx="1109.28" cy="368" r="36" style="fill:var(--accent-dim)" stroke="#416180" stroke-width="1.5"></circle>
+            <svg x="1087.68" y="346.4" width="43.2" height="43.2" viewBox="0 0 24 24" fill="none" stroke="#416180" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="m9 14 2 2 4-4"></path></svg>
+            <text x="1069.28" y="476" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="22" style="fill:var(--ink); text-transform:uppercase">Pruebas</text>
+            <text x="1069.28" y="504" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">Se valida la interfaz HL7/FHIR con</text>
+            <text x="1069.28" y="524" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">casos reales antes de producción</text>
+          </g>
+
+          <g class="chart-step" style="transition-delay:.4s">
+            <rect x="1306.72" y="368" width="253.28" height="64" fill="#2c455d"></rect>
+            <text x="1540" y="409" text-anchor="end" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="32" fill="#fff">06</text>
+            <circle cx="1362.72" cy="432" r="36" style="fill:var(--accent-dim)" stroke="#416180" stroke-width="1.5"></circle>
+            <svg x="1341.12" y="410.4" width="43.2" height="43.2" viewBox="0 0 24 24" fill="none" stroke="#416180" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+            <text x="1322.72" y="268" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="22" style="fill:var(--ink); text-transform:uppercase">Cierre</text>
+            <text x="1322.72" y="296" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">Se monitorean los primeros ciclos</text>
+            <text x="1322.72" y="316" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">en vivo y se ajustan las reglas</text>
+            <text x="1322.72" y="336" font-family="'Barlow', sans-serif" font-size="14" style="fill:var(--ink-dim)">según los casos que aparecen</text>
+          </g>
+        </svg>
       </div>
-      <div class="case-meta">LATAM<br>2024–2025</div>
-    </div>
   </div>
 </section>
 
 <section class="about">
-  <div class="wrap">
-    <div class="section-label">Sobre mí</div>
-    <h2 class="section-title">Diez años en interoperabilidad clínica.</h2>
-    <p><strong>Glenn Tomassi</strong> — especialista en implementación de sistemas de laboratorio clínico e interoperabilidad. Experiencia en producción con HL7v2, FHIR R4, ASTM, CDSHooks, Mirth Connect, criterios de autoverificacion de resultados y motores de reglas clínicas (CDSS), cubriendo implementaciones en Colombia, LATAM y Canadá. Actualmente enfocado en llevar esa misma capacidad técnica a laboratorios y clínicas en Venezuela.</p>
+  <div class="wrap section-grid">
+    <div class="margin-col">
+      <div class="section-label">Sobre mí</div>
+    </div>
+    <div class="content-col">
+      <h2 class="section-title">Diez años en interoperabilidad clínica.</h2>
+      <p class="about-lead"><strong>Glenn Tomassi</strong> — especialista en implementación de sistemas de laboratorio clínico e interoperabilidad, con experiencia en producción en Colombia, LATAM y Canadá.</p>
+      <div class="about-tags">
+        <span class="tag">HL7v2</span>
+        <span class="tag">FHIR R4</span>
+        <span class="tag">ASTM</span>
+        <span class="tag">CDS Hooks</span>
+        <span class="tag">Mirth Connect</span>
+        <span class="tag">CDSS</span>
+      </div>
+      <p class="about-note">Incluye criterios de autoverificación de resultados y motores de reglas clínicas. Actualmente enfocado en llevar esa misma capacidad técnica a laboratorios y clínicas en Venezuela.</p>
+    </div>
   </div>
 </section>
 
+</main>
+
 <footer id="contacto">
   <div class="wrap">
-    <svg width="126" height="34" viewBox="0 0 126 34" xmlns="http://www.w3.org/2000/svg" aria-label="tomassi HSI" style="margin-bottom:28px;">
-      <text x="0" y="24" font-family="'Iowan Old Style','Palatino Linotype',Georgia,serif" font-size="21" fill="#132537">tomassi</text>
-      <text x="80" y="24" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-weight="700" font-size="20" letter-spacing="0.5" fill="#0B5C8C">HSI</text>
+    <svg width="126" height="34" viewBox="0 0 126 34" xmlns="http://www.w3.org/2000/svg" aria-label="tomassi HSI">
+      <text x="0" y="24" font-family="'IBM Plex Serif','Iowan Old Style',Georgia,serif" font-size="21" fill="#132537">tomassi</text>
+      <text x="80" y="24" font-family="'IBM Plex Sans',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-weight="700" font-size="20" letter-spacing="0.5" fill="#0B5C8C">HSI</text>
     </svg>
-    <div class="section-label">Contacto</div>
-    <h2 class="section-title">Hablemos de tu sistema.</h2>
-    <div class="contact-grid">
-      <div>
-        <strong style="color:var(--ink)">WhatsApp / directo</strong><br>
-        <a href="#">+57 350 785 5765</a>
+
+    <div class="section-grid">
+      <div class="margin-col">
+        <div class="section-label">Contacto</div>
       </div>
-      <div>
-        <strong style="color:var(--ink)">Correo</strong><br>
-        <a href="#">contacto@tomassi-hsi.com</a>
-      </div>
-      <div>
-        <strong style="color:var(--ink)">LinkedIn</strong><br>
-        <a href="#">linkedin.com/in/glennrtc</a>
-      </div>
-      <div>
-        <strong style="color:var(--ink)">Cobertura</strong><br>
-        Venezuela · LATAM · Remoto
+      <div class="content-col">
+        <h2 class="section-title">Hablemos de tu sistema.</h2>
+        <div class="footer-cols">
+          <div class="card">
+            <div class="contact-grid">
+              <div>
+                <strong style="color:var(--ink)">WhatsApp / directo</strong><br>
+                <a href="#">+57 350 785 5765</a>
+              </div>
+              <div>
+                <strong style="color:var(--ink)">Correo</strong><br>
+                <a href="#">contacto@tomassi-hsi.com</a>
+              </div>
+              <div>
+                <strong style="color:var(--ink)">LinkedIn</strong><br>
+                <a href="#">linkedin.com/in/glennrtc</a>
+              </div>
+              <div>
+                <strong style="color:var(--ink)">Cobertura</strong><br>
+                Venezuela · LATAM · Remoto
+              </div>
+            </div>
+          </div>
+          <div class="footer-links">
+            <strong>Secciones</strong>
+            <a href="#casos">Casos</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#enfoque">Enfoque</a>
+          </div>
+        </div>
+        <div class="rev-tag">rev. 2026-08-08</div>
       </div>
     </div>
+
     <div class="foot-bottom">
       <span>TOMASSI-HSI · 2026</span>
       <span>HL7 · FHIR · CLINICAL SYSTEMS</span>
     </div>
   </div>
 </footer>
+
+<noscript><style>.uml-row, .uml-link line, .uml-link circle, .chart-step{opacity:1 !important; transform:none !important; stroke-dashoffset:0 !important;}</style></noscript>
+<script>
+(function(){
+  var targets = document.querySelectorAll('.uml-row, .uml-link, .chart-wrap');
+  if(!('IntersectionObserver' in window)){
+    targets.forEach(function(el){ el.classList.add('in-view'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.25});
+  targets.forEach(function(el){ io.observe(el); });
+})();
+</script>
 
 </body>
 </html>
