@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TOMASSI HSI | Soluciones de Interoperabilidad en Salud</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-container": "#ff6b00",
+                      "on-primary-container": "#ffffff",
+                      "surface-highest": "#e5e7eb",
+                      "surface-high": "#f3f4f6",
+                      "surface-low": "#f9fafb",
+                      "surface": "#ffffff",
+                      "on-surface": "#111827",
+                      "on-surface-variant": "#4b5563",
+              },
+              "fontFamily": {
+                      "headline-lg": ["JetBrains Mono"],
+                      "headline-lg-mobile": ["JetBrains Mono"],
+                      "headline-md": ["JetBrains Mono"],
+                      "body-lg": ["JetBrains Mono"],
+                      "mono-data": ["JetBrains Mono"],
+                      "label-md": ["JetBrains Mono"],
+                      "body-md": ["JetBrains Mono"],
+                      "display-lg": ["JetBrains Mono"],
+                      "sans": ["JetBrains Mono"]
+              },
+              "spacing": {
+                      "max-width": "1440px",
+                      "margin-desktop": "32px",
+                      "margin-mobile": "16px",
+                      "unit": "4px",
+                      "gutter": "16px"
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .grid-bg {
+            background-color: #ffffff;
+            background-image: 
+                linear-gradient(to right, #f3f4f6 1px, transparent 1px),
+                linear-gradient(to bottom, #f3f4f6 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        /* Custom scrollbar for data tables */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffffff;
+            border-left: 1px solid #e5e7eb;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff6b00;
+        }
+        
+        .industrial-border {
+            border: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body class="text-on-surface font-body-lg antialiased overflow-x-hidden selection:bg-primary-container selection:text-white bg-surface font-sans">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-sm border-b border-surface-highest">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-max-width mx-auto h-16">
+<!-- Brand -->
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">terminal</span>
+<span class="font-headline-md text-[20px] font-bold tracking-tighter text-on-surface uppercase">TOMASSI HSI</span>
+</div>
+<!-- Desktop Nav -->
+<nav class="hidden md:flex gap-8">
+<a class="text-primary-container border-b-2 border-primary-container pb-1 font-label-md text-[12px] uppercase tracking-widest font-semibold transition-colors duration-150" href="#hero">Inicio</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors duration-150 font-label-md text-[12px] uppercase tracking-widest font-semibold" href="#projects">Casos</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors duration-150 font-label-md text-[12px] uppercase tracking-widest font-semibold" href="#interoperability">Servicios</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors duration-150 font-label-md text-[12px] uppercase tracking-widest font-semibold" href="#process">Metodología</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors duration-150 font-label-md text-[12px] uppercase tracking-widest font-semibold" href="#about">Acerca</a>
+</nav>
+<!-- Action -->
+<a class="hidden md:inline-flex items-center justify-center bg-primary-container text-white font-label-md text-[12px] font-semibold px-6 py-2 uppercase tracking-wider hover:bg-[#e66000] transition-colors rounded-none" href="#contact">
+                Contacto
+            </a>
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="pt-16 w-full">
+<!-- Hero Section -->
+<section class="relative min-h-[90vh] flex items-center border-b border-surface-highest grid-bg" id="hero">
+<div class="w-full max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop py-24 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-8 flex flex-col justify-center gap-8">
+<div class="inline-flex items-center gap-2 border border-surface-highest px-3 py-1 bg-surface-low w-max rounded-none">
+<div class="w-2 h-2 bg-primary-container animate-pulse rounded-none"></div>
+<span class="font-mono-data text-[13px] text-on-surface-variant uppercase tracking-wider font-semibold">System Status: Online</span>
+</div>
+<h1 class="font-display-lg text-[48px] md:text-[64px] text-on-surface leading-tight font-bold tracking-tight">
+                        Arquitecto de Soluciones de <br/>
+<span class="text-primary-container">Interoperabilidad en Salud.</span>
+</h1>
+<p class="font-body-lg text-[16px] text-on-surface-variant max-w-2xl leading-relaxed">
+                        Ingeniero biomédico especializado en el diseño, desarrollo e implementación de arquitecturas complejas de integración de datos clínicos. Optimizando flujos de trabajo médicos mediante protocolos estándar (HL7 FHIR, HL7 V2, DICOM) en entornos críticos.
+                    </p>
+<div class="flex flex-wrap gap-4 mt-4">
+<a class="inline-flex items-center justify-center bg-primary-container text-white font-label-md text-[12px] font-semibold px-8 py-3 uppercase tracking-wider hover:bg-[#e66000] transition-colors gap-2 rounded-none" href="#projects">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+                            Ver Log Técnico
+                        </a>
+<a class="inline-flex items-center justify-center border border-surface-highest bg-white text-on-surface font-label-md text-[12px] font-semibold px-8 py-3 uppercase tracking-wider hover:bg-surface-low transition-colors gap-2 rounded-none" href="#contact">
+                            Iniciar Conexión
+                        </a>
+</div>
+</div>
+<div class="md:col-span-4 hidden md:flex flex-col gap-4 justify-center">
+<!-- Stat Box 1 -->
+<div class="border border-surface-highest bg-white p-6 flex flex-col gap-2 relative group hover:border-primary-container transition-colors shadow-sm rounded-none">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-primary-container scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
+<span class="font-display-lg text-[48px] font-bold text-on-surface leading-none group-hover:text-primary-container transition-colors">10+</span>
+<span class="font-mono-data text-[13px] text-on-surface-variant uppercase tracking-widest border-t border-surface-highest pt-2 font-medium">Años Experiencia</span>
+</div>
+<!-- Stat Box 2 -->
+<div class="border border-surface-highest bg-white p-6 flex flex-col gap-2 relative group hover:border-primary-container transition-colors shadow-sm rounded-none">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-primary-container scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
+<span class="font-display-lg text-[48px] font-bold text-on-surface leading-none group-hover:text-primary-container transition-colors">3</span>
+<span class="font-mono-data text-[13px] text-on-surface-variant uppercase tracking-widest border-t border-surface-highest pt-2 font-medium">Países Operativos</span>
+</div>
+<!-- Stat Box 3 -->
+<div class="border border-surface-highest bg-white p-6 flex flex-col gap-2 relative group hover:border-primary-container transition-colors shadow-sm rounded-none">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-primary-container scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
+<span class="font-display-lg text-[48px] font-bold text-on-surface leading-none group-hover:text-primary-container transition-colors">∞</span>
+<span class="font-mono-data text-[13px] text-on-surface-variant uppercase tracking-widest border-t border-surface-highest pt-2 font-medium">Datos Procesados</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Projects / Technical Log Section -->
+<section class="py-24 border-b border-surface-highest relative bg-white" id="projects">
+<div class="w-full max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-surface-highest pb-4">
+<div>
+<h2 class="font-headline-lg text-[32px] font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">dataset</span>
+                            Technical Log
+                        </h2>
+<p class="font-mono-data text-[13px] text-on-surface-variant mt-2 uppercase tracking-widest">Querying recent implementations...</p>
+</div>
+<div class="font-mono-data text-[13px] text-on-surface-variant">
+                        Last Updated: <span class="text-on-surface font-semibold">2024.10.24</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Project 001 (Featured/Large) -->
+<article class="col-span-1 md:col-span-12 bg-white border border-surface-highest relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-30 font-mono-data text-[13px] pointer-events-none">COORD: 4.6097° N, 74.0817° W</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-0">
+<div class="p-6 md:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-surface-highest bg-white z-10">
+<div>
+<div class="flex justify-between items-start mb-6">
+<span class="font-mono-data text-[13px] text-primary-container font-bold">PRJ-001</span>
+<span class="font-mono-data text-[12px] text-on-surface-variant border border-surface-highest px-2 py-1 bg-surface-low">Colombia / 2023</span>
+</div>
+<h2 class="font-headline-lg text-[32px] text-on-surface mb-4 font-semibold">Motor de correlación LIS/HIS para detección de sepsis</h2>
+<p class="font-body-md text-[14px] text-on-surface-variant mb-6">
+                                Diseño e implementación de un motor de reglas en tiempo real que analiza flujos HL7 ORU desde el Sistema de Información de Laboratorio (LIS) hacia el HIS. Correlaciona resultados de lactato, leucocitos y hemocultivos para disparar alertas clínicas tempranas de sepsis.
+                            </p>
+</div>
+<div class="flex flex-wrap gap-2 mt-4">
+<span class="border border-surface-highest px-3 py-1 font-label-md text-[12px] text-on-surface bg-surface-low font-semibold">Mirth Connect</span>
+<span class="border border-surface-highest px-3 py-1 font-label-md text-[12px] text-on-surface bg-surface-low font-semibold">HL7 v2.5</span>
+<span class="border border-surface-highest px-3 py-1 font-label-md text-[12px] text-on-surface bg-surface-low font-semibold">PostgreSQL</span>
+<span class="border border-surface-highest px-3 py-1 font-label-md text-[12px] text-on-surface bg-surface-low font-semibold">Clinical Decision Support</span>
+</div>
+</div>
+<div class="relative h-64 md:h-auto bg-surface-low border-l border-surface-highest overflow-hidden flex items-center justify-center p-8">
+<img class="w-full h-full object-contain filter grayscale contrast-125 hover:grayscale-0 transition-all duration-500" data-alt="Technical blueprint diagram showing system architecture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv50cREWQeIF7dsDUZoaL2FsUEAxXZmlhojz_q3qBCtyP2JExQv33EmzBbYFNBOsBlcPB98DzBbzMGmVnVGaAlur3zIgM9XDPBplzZMHt-l17m_gb5pux01bproNeXKnZQzNDy743huJKrSsncwrl0GwvZbzAAjelgAzGsvHIWxlwmtJTkE3plykP9ixhZAvArg0NmSEbyemjfV9xBD58PSuHgrCfvjP1E6uAU9OPGwpSKKmmfFVsUMg"/>
+<div class="absolute inset-0 border-l-2 border-primary-container opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+</div>
+</div>
+</article>
+<!-- Project 002 -->
+<article class="col-span-1 md:col-span-6 bg-white border border-surface-highest relative group flex flex-col">
+<div class="h-48 relative border-b border-surface-highest bg-surface-low overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-cover filter grayscale opacity-80 hover:grayscale-0 transition-all duration-500" data-alt="Technical data array visualization" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgER8GhI3bwtYdomiAE958uSO22231p8bidEddxwcl4VK3f1nE4rXHVYpnoXzAs2ChlYWPFDHsFsV1JoWzzq4Lu-q1jGHnA9kRjW3CSje_d1iWPsB9HgR8EzABz538BNBgkOtk19a7ZxNAErkf4FleTxaykQRaeLvnyXhMyvZW8Eghs62UvfiUDk5zn2dr7MM4ORE5NJwd6n51T-DJhl62JszSUI2-dZZy6q0ft3BwNpcLnHqfXSKDkg"/>
+<span class="absolute top-4 left-4 bg-white border border-surface-highest px-2 py-1 font-mono-data text-[12px] text-primary-container z-10 font-bold shadow-sm">PRJ-002</span>
+</div>
+<div class="p-6 flex-grow flex flex-col bg-white">
+<div class="flex justify-between items-center mb-3">
+<span class="font-mono-data text-[12px] text-on-surface-variant border border-surface-highest px-2 py-1 bg-surface-low">México / 2023</span>
+<div class="flex items-center gap-1 border border-surface-highest px-2 py-1 bg-surface-low">
+<div class="w-1.5 h-1.5 bg-[#34c759]"></div>
+<span class="font-mono-data text-[12px] text-on-surface font-semibold">ACTIVO</span>
+</div>
+</div>
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-3">Interfaz LIS -&gt; CDS con transformación de mensajes</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant mb-6 flex-grow">
+                        Traducción y enriquecimiento de mensajería legacy de laboratorio hacia un motor de soporte a decisiones clínicas moderno, mapeando códigos locales a LOINC mediante tablas maestras dinámicas.
+                    </p>
+<div class="flex flex-wrap gap-2 border-t border-surface-highest pt-4">
+<span class="font-label-md text-[12px] text-on-surface-variant uppercase font-semibold">HL7</span>
+<span class="font-label-md text-[12px] text-on-surface-variant uppercase font-semibold">LOINC</span>
+<span class="font-label-md text-[12px] text-on-surface-variant uppercase font-semibold">Data Mapping</span>
+</div>
+</div>
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</article>
+<!-- Project 003 -->
+<article class="col-span-1 md:col-span-6 bg-white border border-surface-highest relative group flex flex-col">
+<div class="h-48 relative border-b border-surface-highest bg-surface-low overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-cover filter grayscale opacity-80 hover:grayscale-0 transition-all duration-500" data-alt="Data node visualization map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX3XahoMT92y7MsQ0Ku1hUTfEt_zbOeu3xcKKNSWs2quvHhYO6AT5-_KWIPqM1a7K27LsAksqeFdeU4VF57YIFp8-2sgdXNQIB1cz6B-SVpW9K5joLyme7_TqACxdzzN6KyUEQqGIHmgwCu7rx9UcYee5TN7jWSziQ5kSVWrgHq-g7lCzWK_OUDKODTM7KGqydsn9Ht-PIFzqvn9bXuUY8FEa0Aw6IfAon2CdcjgLPB_KBgRE_JQQ7AQ"/>
+<span class="absolute top-4 left-4 bg-white border border-surface-highest px-2 py-1 font-mono-data text-[12px] text-primary-container z-10 font-bold shadow-sm">PRJ-003</span>
+</div>
+<div class="p-6 flex-grow flex flex-col bg-white">
+<div class="flex justify-between items-center mb-3">
+<span class="font-mono-data text-[12px] text-on-surface-variant border border-surface-highest px-2 py-1 bg-surface-low">México / 2022</span>
+<div class="flex items-center gap-1 border border-surface-highest px-2 py-1 bg-surface-low">
+<div class="w-1.5 h-1.5 bg-[#34c759]"></div>
+<span class="font-mono-data text-[12px] text-on-surface font-semibold">ACTIVO</span>
+</div>
+</div>
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-3">Identificación automática de pacientes con síndrome metabólico</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant mb-6 flex-grow">
+                        Implementación de un pipeline analítico que extrae valores discretos (glucosa, triglicéridos, HDL) de mensajes ORU y consolida perfiles de riesgo metabólico poblacional en un data warehouse.
+                    </p>
+<div class="flex flex-wrap gap-2 border-t border-surface-highest pt-4">
+<span class="font-label-md text-[12px] text-on-surface-variant uppercase font-semibold">Analytics</span>
+<span class="font-label-md text-[12px] text-on-surface-variant uppercase font-semibold">Data Warehouse</span>
+<span class="font-label-md text-[12px] text-on-surface-variant uppercase font-semibold">ETL</span>
+</div>
+</div>
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</article>
+<!-- Project 004 -->
+<article class="col-span-1 md:col-span-6 bg-white border border-surface-highest relative group flex flex-col">
+<div class="p-6 flex-grow flex flex-col border-b border-surface-highest bg-white">
+<div class="flex justify-between items-center mb-3">
+<span class="font-mono-data text-[12px] text-primary-container font-bold border border-surface-highest px-2 py-1 bg-surface-low">PRJ-004</span>
+<span class="font-mono-data text-[12px] text-on-surface-variant border border-surface-highest px-2 py-1 bg-surface-low">Colombia / 2024</span>
+</div>
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-3">Canal HL7 a JSON con generación de estadísticas</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant mb-6 flex-grow">
+                        Desarrollo de un endpoint de ingesta que parsea flujos continuos HL7 v2, los serializa a estructuras JSON anidadas para consumo de APIs modernas y genera métricas de latencia de red en tiempo real.
+                    </p>
+<div class="flex flex-wrap gap-2 pt-2">
+<span class="font-label-md text-[12px] text-on-surface-variant border-b border-surface-highest pb-1 uppercase font-semibold">API REST</span>
+<span class="font-label-md text-[12px] text-on-surface-variant border-b border-surface-highest pb-1 uppercase font-semibold">JSON</span>
+<span class="font-label-md text-[12px] text-on-surface-variant border-b border-surface-highest pb-1 uppercase font-semibold">Telemetry</span>
+</div>
+</div>
+<div class="h-32 relative bg-surface-low overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-cover filter grayscale opacity-60 hover:grayscale-0 transition-all duration-500" data-alt="Server racks in data center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-1T1rJzlGgYJk0aV7ynGDAEnJ_ww5yoN3OgY-Fz39iVCntHwq8Q-n9217W4qcadcj9E6eYP0l_QdtQ3mSr8Vfpu2ZTq5qrWJDk2B-tAKHUXmTRQGhOQ1GrRIzyUVRBR1Sye0OVe7CxqA07Sfq047Yvsvq08EpMXN5FLae9nRxSYZkOkPPHFTMQZW8zaM9TYNuGDvfnq392w04vgKi-8ByBbS_ixxMT7De8ul3jI0az3_YZisIswQ6Lg"/>
+</div>
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</article>
+<!-- Project 005 -->
+<article class="col-span-1 md:col-span-6 bg-white border border-surface-highest relative group flex flex-col">
+<div class="p-6 flex-grow flex flex-col border-b border-surface-highest bg-white">
+<div class="flex justify-between items-center mb-3">
+<span class="font-mono-data text-[12px] text-primary-container font-bold border border-surface-highest px-2 py-1 bg-surface-low">PRJ-005</span>
+<span class="font-mono-data text-[12px] text-on-surface-variant border border-surface-highest px-2 py-1 bg-surface-low">LATAM/Caribe / 2024</span>
+</div>
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-3">Estandarización de resultados de laboratorio por episodio</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant mb-6 flex-grow">
+                        Agrupación lógica y normalización semántica de resultados provenientes de múltiples sistemas satélite, unificando identificadores de paciente y episodios de cuidado (Encounter) para un HIE regional.
+                    </p>
+<div class="flex flex-wrap gap-2 pt-2">
+<span class="font-label-md text-[12px] text-on-surface-variant border-b border-surface-highest pb-1 uppercase font-semibold">HIE</span>
+<span class="font-label-md text-[12px] text-on-surface-variant border-b border-surface-highest pb-1 uppercase font-semibold">MPI</span>
+<span class="font-label-md text-[12px] text-on-surface-variant border-b border-surface-highest pb-1 uppercase font-semibold">FHIR R4</span>
+</div>
+</div>
+<div class="h-32 relative bg-surface-low overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-cover filter grayscale opacity-60 hover:grayscale-0 transition-all duration-500" data-alt="Blueprint map of Latin America" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW79aZi1iD0YYp75Xp_FdeW-cdIqKhN3q5_Y3LcwYERsRxu-p9337v_MllRhfkMjVokmkAyLmzQTSrlNgEinA0dPf-ck63vTDgNhiddjFa_o5R2vrrcYgxljZ6o5Ih_meN_toFtNWF4s9ApBHqR81PqmDng8_FN6oTYArIgJGKNC1OvR7d9i-roJ0U6rYvHasy-kExMdq39OIbr1gXH2z0xESmhfat_z1-GaE-AZBDUOWY-W8LTG_fQA"/>
+</div>
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</article>
+</div>
+</div>
+</section>
+<!-- Services Section (Diagrammatic) -->
+<section class="py-24 border-b border-surface-highest grid-bg" id="interoperability">
+<div class="w-full max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="mb-16 text-center max-w-3xl mx-auto">
+<h2 class="font-headline-lg text-[32px] font-semibold text-on-surface mb-4">Architecture Capabilities</h2>
+<p class="font-body-lg text-[16px] text-on-surface-variant">Consultoría estratégica y ejecución técnica para ecosistemas de salud digital.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter relative">
+<!-- Connecting line for desktop -->
+<div class="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 border-t-2 border-dashed border-primary-container z-0"></div>
+<!-- Consultoria Card -->
+<div class="border border-surface-highest bg-white p-8 relative z-10 hover:border-primary-container transition-colors shadow-sm group rounded-none">
+<div class="flex justify-between items-start mb-8 border-b border-surface-highest pb-4">
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface uppercase">Consultancy</h3>
+<span class="material-symbols-outlined text-primary-container">strategy</span>
+</div>
+<ul class="flex flex-col gap-4 font-mono-data text-[14px] text-on-surface-variant">
+<li class="flex items-center gap-3">
+<div class="w-2 h-2 bg-primary-container rounded-none"></div>
+                                Auditoría de Arquitecturas Actuales
+                            </li>
+<li class="flex items-center gap-3">
+<div class="w-2 h-2 bg-primary-container rounded-none"></div>
+                                Diseño de Soluciones de Integración (HL7, FHIR, DICOM)
+                            </li>
+<li class="flex items-center gap-3">
+<div class="w-2 h-2 bg-primary-container rounded-none"></div>
+                                Selección de Motores de Integración y Plataformas
+                            </li>
+<li class="flex items-center gap-3">
+<div class="w-2 h-2 bg-primary-container rounded-none"></div>
+                                Capacitación de Equipos Técnicos
+                            </li>
+</ul>
+<div class="mt-8 pt-4 border-t border-surface-highest font-mono-data text-[11px] font-bold uppercase text-on-surface-variant text-right">
+                            [ STRATEGIC LAYER ]
+                        </div>
+</div>
+<!-- Tecnica Card -->
+<div class="border border-surface-highest bg-white p-8 relative z-10 hover:border-primary-container transition-colors shadow-sm group rounded-none">
+<div class="flex justify-between items-start mb-8 border-b border-surface-highest pb-4">
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface uppercase">Technics</h3>
+<span class="material-symbols-outlined text-primary-container">code_blocks</span>
+</div>
+<ul class="flex flex-col gap-4 font-mono-data text-[14px] text-on-surface-variant">
+<li class="flex items-center gap-3">
+<div class="w-2 h-2 border-2 border-primary-container rounded-none"></div>
+                                Desarrollo de Interfaces HL7 v2 y FHIR
+                            </li>
+<li class="flex items-center gap-3">
+<div class="w-2 h-2 border-2 border-primary-container rounded-none"></div>
+                                Configuración de Motores de Integración (Mirth Connect, Rhapsody)
+                            </li>
+<li class="flex items-center gap-3">
+<div class="w-2 h-2 border-2 border-primary-container rounded-none"></div>
+                                Pruebas de Interoperabilidad (Unitarias, Integración, Stress)
+                            </li>
+<li class="flex items-center gap-3">
+<div class="w-2 h-2 border-2 border-primary-container rounded-none"></div>
+                                Soporte y Mantenimiento de Interfaces (L2/L3)
+                            </li>
+</ul>
+<div class="mt-8 pt-4 border-t border-surface-highest font-mono-data text-[11px] font-bold uppercase text-on-surface-variant text-right">
+                            [ EXECUTION LAYER ]
+                        </div>
+</div>
+</div>
+</div>
+</section>
+<!-- Methodology Section -->
+<section class="py-24 border-b border-surface-highest bg-white" id="process">
+<div class="w-full max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="mb-12 border-b border-surface-highest pb-4">
+<h2 class="font-headline-lg text-[32px] font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">account_tree</span>
+                        Metodología
+                    </h2>
+<p class="font-mono-data text-[13px] text-on-surface-variant mt-2 uppercase tracking-widest">Workflow lifecycle</p>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 relative">
+<!-- Connecting Line -->
+<div class="hidden md:block absolute top-1/2 left-0 w-full h-[2px] bg-surface-highest -translate-y-1/2 z-0"></div>
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-3 relative z-10 w-full md:w-auto bg-white p-2 group"><div class="w-10 h-10 rounded-none border-2 border-primary-container flex items-center justify-center bg-white font-mono-data font-bold text-primary-container">01</div><div class="font-mono-data text-[13px] font-semibold uppercase text-on-surface text-center">Iniciación</div><div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-64 p-3 bg-on-surface text-white text-[11px] font-mono-data opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border-l-2 border-primary-container z-50">Relevamiento de flujos de trabajo clínicos y auditoría de protocolos existentes (HL7/FHIR).</div></div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-3 relative z-10 w-full md:w-auto bg-white p-2 group"><div class="w-10 h-10 rounded-none border-2 border-surface-highest flex items-center justify-center bg-white font-mono-data font-bold text-on-surface-variant">02</div><div class="font-mono-data text-[13px] font-semibold uppercase text-on-surface text-center">Planificación</div><div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-64 p-3 bg-on-surface text-white text-[11px] font-mono-data opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border-l-2 border-primary-container z-50">Definición del alcance técnico, mapeo de mensajes y cronograma de hitos de integración.</div></div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-3 relative z-10 w-full md:w-auto bg-white p-2 group"><div class="w-10 h-10 rounded-none border-2 border-surface-highest flex items-center justify-center bg-white font-mono-data font-bold text-on-surface-variant">03</div><div class="font-mono-data text-[13px] font-semibold uppercase text-on-surface text-center">Diseño</div><div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-64 p-3 bg-on-surface text-white text-[11px] font-mono-data opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border-l-2 border-primary-container z-50">Especificación de la arquitectura de datos, lógica de ruteo y transformaciones de mensajes.</div></div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-3 relative z-10 w-full md:w-auto bg-white p-2 group"><div class="w-10 h-10 rounded-none border-2 border-surface-highest flex items-center justify-center bg-white font-mono-data font-bold text-on-surface-variant">04</div><div class="font-mono-data text-[13px] font-semibold uppercase text-on-surface text-center">Ejecución</div><div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-64 p-3 bg-on-surface text-white text-[11px] font-mono-data opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border-l-2 border-primary-container z-50">Configuración de canales en el motor de integración y despliegue controlado en entornos de prueba.</div></div>
+<!-- Step 5 -->
+<div class="flex flex-col items-center gap-3 relative z-10 w-full md:w-auto bg-white p-2 group"><div class="w-10 h-10 rounded-none border-2 border-surface-highest flex items-center justify-center bg-white font-mono-data font-bold text-on-surface-variant">05</div><div class="font-mono-data text-[13px] font-semibold uppercase text-on-surface text-center">Pruebas</div><div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-64 p-3 bg-on-surface text-white text-[11px] font-mono-data opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border-l-2 border-primary-container z-50">Validación exhaustiva de esquemas, pruebas unitarias de ruteo y simulación de escenarios críticos.</div></div>
+<!-- Step 6 -->
+<div class="flex flex-col items-center gap-3 relative z-10 w-full md:w-auto bg-white p-2 group"><div class="w-10 h-10 rounded-none border-2 border-primary-container bg-primary-container flex items-center justify-center text-white font-mono-data font-bold">06</div><div class="font-mono-data text-[13px] font-semibold uppercase text-on-surface text-center">Cierre</div><div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-64 p-3 bg-on-surface text-white text-[11px] font-mono-data opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border-l-2 border-primary-container z-50">Monitoreo de ciclos de producción iniciales, entrega de documentación técnica y soporte L2/L3.</div></div>
+</div>
+</div>
+</section>
+<!-- About / Contact Section -->
+<section class="py-24 bg-surface-low grid-bg" id="about">
+<div class="w-full max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div>
+<h2 class="font-headline-lg text-[32px] font-semibold text-on-surface mb-6">Acerca del Ingeniero</h2>
+<p class="font-body-lg text-[16px] text-on-surface-variant mb-4 leading-relaxed">
+                        Con una sólida formación en Ingeniería Biomédica y certificaciones en estándares internacionales de salud digital, me dedico a tender puentes técnicos entre sistemas aislados. Mi enfoque se basa en la precisión, la seguridad del paciente y el rendimiento en entornos críticos.
+                    </p>
+<p class="font-body-lg text-[16px] text-on-surface-variant leading-relaxed">
+                        He colaborado con instituciones de primer nivel en toda la región, liderando migraciones complejas y estableciendo arquitecturas de interoperabilidad escalables que preparan a las organizaciones para el futuro de la salud digital.
+                    </p>
+</div>
+<div class="border border-surface-highest bg-white p-8 shadow-sm rounded-none" id="contact">
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface uppercase mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">mail</span>
+                        Iniciar Contacto
+                    </h3>
+<form class="flex flex-col gap-4">
+<div>
+<label class="block font-mono-data text-[12px] uppercase font-bold text-on-surface-variant mb-1">Entidad / Nombre</label>
+<input class="w-full bg-surface-low border border-surface-highest px-4 py-2 font-mono-data text-[14px] text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors rounded-none" type="text"/>
+</div>
+<div>
+<label class="block font-mono-data text-[12px] uppercase font-bold text-on-surface-variant mb-1">Protocolo / Email</label>
+<input class="w-full bg-surface-low border border-surface-highest px-4 py-2 font-mono-data text-[14px] text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors rounded-none" type="email"/>
+</div>
+<div>
+<label class="block font-mono-data text-[12px] uppercase font-bold text-on-surface-variant mb-1">Payload / Mensaje</label>
+<textarea class="w-full bg-surface-low border border-surface-highest px-4 py-2 font-mono-data text-[14px] text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors resize-none rounded-none" rows="4"></textarea>
+</div>
+<button class="mt-4 bg-primary-container text-white font-label-md text-[13px] font-bold px-6 py-3 uppercase tracking-wider hover:bg-[#e66000] transition-colors w-full text-center rounded-none" type="button">
+                            Transmitir Datos
+                        </button>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="bg-white border-t border-surface-highest full-width">
+<div class="w-full py-12 px-margin-desktop max-w-max-width mx-auto flex flex-col gap-8">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+<!-- Brand -->
+<div class="font-headline-md text-[20px] font-bold text-on-surface flex items-center gap-2 uppercase">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">terminal</span>
+                    TOMASSI HSI
+                </div>
+<!-- Links -->
+<nav class="flex flex-wrap gap-6 font-mono-data text-[12px] font-semibold">
+<a class="text-on-surface-variant hover:text-primary-container transition-colors uppercase" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors uppercase" href="#">Technical Specs</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors uppercase" href="#">ISO 27001 Compliance</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors uppercase" href="#">API Docs</a>
+</nav>
+</div>
+<!-- Copyright -->
+<div class="font-mono-data text-[12px] font-bold text-on-surface-variant border-t border-surface-highest pt-4">
+                © 2024 TOMASSI HSI | INDUSTRIAL SYSTEMS INTERFACE | ALL RIGHTS RESERVED
+            </div>
+</div>
+</footer>
+</body></html>
