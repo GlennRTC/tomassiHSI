@@ -6,7 +6,15 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-const { escapeHtml, renderTags, spliceMarked } = require('./build-content');
+const {
+  escapeHtml,
+  renderTags,
+  renderCasoCard,
+  renderCasoModal,
+  renderCasosCards,
+  renderCasosModals,
+  spliceMarked,
+} = require('./build-content');
 
 test('escapeHtml escapes &, <, >, and "', () => {
   assert.equal(escapeHtml('<a> & "quote"'), '&lt;a&gt; &amp; &quot;quote&quot;');
@@ -39,4 +47,54 @@ test('spliceMarked throws when markers are missing', () => {
   const file = path.join(dir, 'sample.html');
   fs.writeFileSync(file, '<p>no markers here</p>');
   assert.throws(() => spliceMarked(file, 'MISSING', 'x'));
+});
+
+const SAMPLE_CASO = {
+  id: 'PRJ-001',
+  featured: false,
+  title: 'Título de prueba',
+  summary: 'Resumen de prueba',
+  country: 'Colombia',
+  period: '2025–2026',
+  tags: ['HL7', 'Mirth Connect'],
+  image: { src: 'https://example.com/img.png', alt: 'Diagrama de prueba' },
+  detail: {
+    contexto: 'Contexto de prueba',
+    problema: 'Problema de prueba',
+    solucion: 'Solución de prueba',
+    resultado: 'Resultado de prueba',
+  },
+};
+
+test('renderCasoCard uses the standard template when not featured', () => {
+  const html = renderCasoCard(SAMPLE_CASO);
+  assert.match(html, /col-span-1 md:col-span-6/);
+  assert.match(html, /Título de prueba/);
+  assert.match(html, /href="#modal-prj-001"/);
+});
+
+test('renderCasoCard uses the featured template when featured is true', () => {
+  const html = renderCasoCard({ ...SAMPLE_CASO, featured: true });
+  assert.match(html, /col-span-1 md:col-span-12/);
+});
+
+test('renderCasoModal includes all four detail sections and the correct ids', () => {
+  const html = renderCasoModal(SAMPLE_CASO);
+  assert.match(html, /id="modal-prj-001"/);
+  assert.match(html, /id="modal-prj-001-title"/);
+  assert.match(html, /Contexto de prueba/);
+  assert.match(html, /Problema de prueba/);
+  assert.match(html, /Solución de prueba/);
+  assert.match(html, /Resultado de prueba/);
+});
+
+test('renderCasosCards renders one article per caso inside the grid wrapper', () => {
+  const html = renderCasosCards([SAMPLE_CASO, { ...SAMPLE_CASO, id: 'PRJ-002' }]);
+  assert.match(html, /class="grid grid-cols-1 md:grid-cols-12 gap-6"/);
+  assert.equal((html.match(/<article/g) || []).length, 2);
+});
+
+test('renderCasosModals renders one case-modal div per caso', () => {
+  const html = renderCasosModals([SAMPLE_CASO, { ...SAMPLE_CASO, id: 'PRJ-002' }]);
+  assert.equal((html.match(/case-modal/g) || []).length, 2);
 });
