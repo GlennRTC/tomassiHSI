@@ -1,0 +1,97 @@
+[
+  {
+    "id": "PRJ-001",
+    "featured": true,
+    "title": "Motor de correlación de datos LIS/HIS para detección de sepsis",
+    "summary": "Middleware que cruza resultados de laboratorio y datos hospitalarios en tiempo real para generar alertas clínicas tempranas.",
+    "country": "Colombia",
+    "period": "2025–2026",
+    "tags": ["Mirth Connect", "MySQL", "JSON", "HTTP", "Rest API", "Webhooks"],
+    "image": {
+      "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuCv50cREWQeIF7dsDUZoaL2FsUEAxXZmlhojz_q3qBCtyP2JExQv33EmzBbYFNBOsBlcPB98DzBbzMGmVnVGaAlur3zIgM9XDPBplzZMHt-l17m_gb5pux01bproNeXKnZQzNDy743huJKrSsncwrl0GwvZbzAAjelgAzGsvHIWxlwmtJTkE3plykP9ixhZAvArg0NmSEbyemjfV9xBD58PSuHgrCfvjP1E6uAU9OPGwpSKKmmfFVsUMg",
+      "alt": "Technical blueprint diagram showing system architecture"
+    },
+    "detail": {
+      "contexto": "La sepsis es una de las principales causas de mortalidad hospitalaria evitable cuando se detecta tarde. Los resultados de laboratorio y los datos clínicos vivían en sistemas separados (LIS e HIS), sin correlación automática entre ambos. Desarrollado para un Hospital de 500 camas. Alrededor de 60 alertas por mes",
+      "problema": "El HIS no tenía visibilidad en tiempo real sobre resultados de laboratorio críticos al momento de generarse.",
+      "solucion": "Middleware sobre Mirth Connect que recibe resultados de laboratorio en tiempo real, los cruza contra datos hospitalarios del paciente, persiste el estado de correlación en MySQL y genera alertas clínicas tempranas vía HTTP/JSON. Se implementó un mecanismo de \"cache\" para mejorar el rendimiento y evitar fatiga de alertas. Las interpretaciones emitidas en menos de 1 segundo, son enviados a los clinicos a través de un sistema de mensajeria comercial.",
+      "resultado": "Se reduce el tiempo de alerta para los pacientes con riesgo de sepsis o sepsis activa."
+    }
+  },
+  {
+    "id": "PRJ-002",
+    "featured": false,
+    "title": "Interfaz LIS → CDS con transformación de mensajes",
+    "summary": "Canal de integración que transforma resultados de laboratorio a formato SOAP/JSON y notifica automáticamente al sistema clínico.",
+    "country": "México",
+    "period": "2024–2026",
+    "tags": ["Mirth Connect", "SOAP", "JSON", "JavaScript"],
+    "image": {
+      "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuCgER8GhI3bwtYdomiAE958uSO22231p8bidEddxwcl4VK3f1nE4rXHVYpnoXzAs2ChlYWPFDHsFsV1JoWzzq4Lu-q1jGHnA9kRjW3CSje_d1iWPsB9HgR8EzABz538BNBgkOtk19a7ZxNAErkf4FleTxaykQRaeLvnyXhMyvZW8Eghs62UvfiUDk5zn2dr7MM4ORE5NJwd6n51T-DJhl62JszSUI2-dZZy6q0ft3BwNpcLnHqfXSKDkg",
+      "alt": "Technical data array visualization"
+    },
+    "detail": {
+      "contexto": "Laboratorio de referencia en México con alta demanda de resultados clínicos en tiempo real que buscan integración con sistemas de soporte de decisiones clínicas para agregar valor.",
+      "problema": "Se requiere transformar los mensajes del sistema de laboratorio (LIS) al formato requerido por el sistema de soporte de decisiones clínicas (CDS) cuando llegaban nuevos resultados.",
+      "solucion": "Canal de integración en Mirth Connect que transforma resultados de laboratorio a formato SOAP/JSON y notifica automáticamente al sistema clínico. Se transforman los resultados en el formato requerido por el CDS de JSON Custom y sin agrupacion por episodios a estructura definida.",
+      "resultado": "Se logró una integración exitosa entre el sistema de laboratorio y el sistema de soporte de decisiones clínicas, mejorando la eficiencia en la notificación de resultados y facilitando la toma de decisiones clínicas."
+    }
+  },
+  {
+    "id": "PRJ-003",
+    "featured": false,
+    "title": "Integracion de Datos para la identificación automática de pacientes con síndrome metabólico",
+    "summary": "Analiza resultados de laboratorio contra el historial del paciente para detectar prediabetes, diabetes y dislipidemia, y genera alertas clínicas.",
+    "country": "México",
+    "period": "2024–2026",
+    "tags": ["Mirth Connect", "HL7", "XML"],
+    "image": {
+      "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuDX3XahoMT92y7MsQ0Ku1hUTfEt_zbOeu3xcKKNSWs2quvHhYO6AT5-_KWIPqM1a7K27LsAksqeFdeU4VF57YIFp8-2sgdXNQIB1cz6B-SVpW9K5joLyme7_TqACxdzzN6KyUEQqGIHmgwCu7rx9UcYee5TN7jWSziQ5kSVWrgHq-g7lCzWK_OUDKODTM7KGqydsn9Ht-PIFzqvn9bXuUY8FEa0Aw6IfAon2CdcjgLPB_KBgRE_JQQ7AQ",
+      "alt": "Data node visualization map"
+    },
+    "detail": {
+      "contexto": "Red de Hospitales en México con alta demanda de resultados clínicos en tiempo real que buscan asegurar la adherencia a protocolos clínicos.",
+      "problema": "Detectar prediabetes, diabetes y dislipidemia requiere cruzar resultados de laboratorio actuales contra el historial del paciente, algo que no ocurría automáticamente. El LIS enviaba los datos validados pero sin los historicos para su análisis y correlación.",
+      "solucion": "Canal en Mirth Connect que integra los datos de resultados de laboratorio (HL7/XML) que posteriormente el CDSS analiza contra el historial clínico del paciente para identificar patrones de síndrome metabólico y generar alertas.",
+      "resultado": "Identificación automática de pacientes con síndrome metabólico, mejorando la detección temprana y la intervención clínica."
+    }
+  },
+  {
+    "id": "PRJ-004",
+    "featured": false,
+    "title": "Canal HL7 a JSON con generación de estadísticas",
+    "summary": "Procesa mensajes HL7 entrantes, los transforma a JSON para el sistema de soporte de decisiones y genera estadísticas por fase de despliegue.",
+    "country": "Colombia",
+    "period": "2024–2026",
+    "tags": ["Mirth Connect", "HL7", "JSON", "JavaScript"],
+    "image": {
+      "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuC-1T1rJzlGgYJk0aV7ynGDAEnJ_ww5yoN3OgY-Fz39iVCntHwq8Q-n9217W4qcadcj9E6eYP0l_QdtQ3mSr8Vfpu2ZTq5qrWJDk2B-tAKHUXmTRQGhOQ1GrRIzyUVRBR1Sye0OVe7CxqA07Sfq047Yvsvq08EpMXN5FLae9nRxSYZkOkPPHFTMQZW8zaM9TYNuGDvfnq392w04vgKi-8ByBbS_ixxMT7De8ul3jI0az3_YZisIswQ6Lg",
+      "alt": "Server racks in data center"
+    },
+    "detail": {
+      "contexto": "Herramienta de monitoreo y estadisticas.",
+      "problema": "El sistema de soporte de decisiones requería los resultados en JSON, no en HL7 nativo, y no existía visibilidad de estadísticas por fase de despliegue.",
+      "solucion": "Canal en Mirth Connect que extrae, registra y cuenta, los transforma a JSON y envia a un dashboard por fase de despliegue. Algunas de las metricas tomadas son: fecha de la ultima transmision, cantidad de casos procesados, cantidad de objetos/atributos por mensaje.",
+      "resultado": "Sistema de monitoreo y estadísticas implementado con éxito, mejorando la visibilidad de los datos por fase de despliegue."
+    }
+  },
+  {
+    "id": "PRJ-005",
+    "featured": false,
+    "title": "Estandarización de resultados de laboratorio por episodio",
+    "summary": "Transforma resultados de múltiples analizadores a una estructura JSON unificada por episodio clínico, lista para consumo por sistemas de decisión.",
+    "country": "LATAM/Caribe",
+    "period": "2025–2026",
+    "tags": ["HL7/ASTM", "Redes", "Administración de Windows"],
+    "image": {
+      "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuBW79aZi1iD0YYp75Xp_FdeW-cdIqKhN3q5_Y3LcwYERsRxu-p9337v_MllRhfkMjVokmkAyLmzQTSrlNgEinA0dPf-ck63vTDgNhiddjFa_o5R2vrrcYgxljZ6o5Ih_meN_toFtNWF4s9ApBHqR81PqmDng8_FN6oTYArIgJGKNC1OvR7d9i-roJ0U6rYvHasy-kExMdq39OIbr1gXH2z0xESmhfat_z1-GaE-AZBDUOWY-W8LTG_fQA",
+      "alt": "Blueprint map of Latin America"
+    },
+    "detail": {
+      "contexto": "Laboratorios de distintos países de LATAM/Caribe con múltiples analizadores, cada uno con su propio formato de salida.",
+      "problema": "Se requiere conectar los analizadores de laboratorio a un sistema centralizado que pueda unificar sus resultados e implementar criterios de autoverificacion y automatizar procesos dentro del entorno clínico.",
+      "solucion": "Se conectaron los analizadores a un sistema centralizado o middleware que unifica sus resultados y permite la implementación de criterios de autoverificación y automatización de procesos.",
+      "resultado": "Los laboratorios han podido incrementar su capacidad de trabajo gracias a la automatizacion de procesos."
+    }
+  }
+]
