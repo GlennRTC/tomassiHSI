@@ -13,6 +13,8 @@ const {
   renderCasoModal,
   renderCasosCards,
   renderCasosModals,
+  renderDocumentRow,
+  renderDocumentsSection,
   spliceMarked,
 } = require('./build-content');
 
@@ -97,4 +99,31 @@ test('renderCasosCards renders one article per caso inside the grid wrapper', ()
 test('renderCasosModals renders one case-modal div per caso', () => {
   const html = renderCasosModals([SAMPLE_CASO, { ...SAMPLE_CASO, id: 'PRJ-002' }]);
   assert.equal((html.match(/case-modal/g) || []).length, 2);
+});
+
+test('renderDocumentsSection falls back to the placeholder when there are no documents', () => {
+  const html = renderDocumentsSection([]);
+  assert.match(html, /Próximamente/);
+  assert.match(html, /Esta sección reunirá papers técnicos/);
+});
+
+test('renderDocumentsSection lists documents when present', () => {
+  const html = renderDocumentsSection([
+    { title: 'Guía LOINC', description: 'Notas de mapeo', date: '2026-08', file: 'loinc-mapping.pdf' },
+  ]);
+  assert.match(html, /Guía LOINC/);
+  assert.match(html, /Notas de mapeo/);
+  assert.match(html, /href="documents\/loinc-mapping\.pdf"/);
+  assert.doesNotMatch(html, /Próximamente/);
+});
+
+test('renderDocumentRow escapes document fields', () => {
+  const html = renderDocumentRow({
+    title: 'A & B',
+    description: '<script>',
+    date: '2026-08',
+    file: 'a-b.md',
+  });
+  assert.match(html, /A &amp; B/);
+  assert.match(html, /&lt;script&gt;/);
 });

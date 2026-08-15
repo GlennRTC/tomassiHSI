@@ -141,6 +141,42 @@ function renderCasosModals(casos) {
   return casos.map(renderCasoModal).join('\n');
 }
 
+const DOCUMENTS_PLACEHOLDER = `<div class="border border-surface-highest bg-white p-8 md:p-12 max-w-2xl shadow-sm">
+<div class="inline-flex items-center gap-2 border border-surface-highest px-3 py-1 bg-surface-low w-max mb-6">
+<div class="w-2 h-2 bg-primary-container animate-pulse"></div>
+<span class="text-[13px] text-on-surface-variant uppercase tracking-wider font-semibold">Próximamente</span>
+</div>
+<p class="text-[16px] text-on-surface-variant leading-relaxed mb-8">
+Esta sección reunirá papers técnicos, notas de arquitectura y documentación (PDF / Markdown) sobre interoperabilidad clínica, HL7, FHIR y ASTM.
+</p>
+<a class="inline-flex items-center justify-center border border-surface-highest bg-white text-on-surface text-[12px] font-semibold px-6 py-3 uppercase tracking-wider hover:bg-surface-low transition-colors gap-2" href="index.html#contact">
+¿Buscas un documento específico? Contáctame
+</a>
+</div>`;
+
+function renderDocumentRow(doc) {
+  return `<div class="p-6 md:p-8 flex flex-col gap-2">
+<div class="flex flex-wrap items-center justify-between gap-2">
+<h2 class="text-[18px] font-semibold text-on-surface">${escapeHtml(doc.title)}</h2>
+<span class="text-[12px] text-on-surface-variant border border-surface-highest px-2 py-1 bg-surface-low">${escapeHtml(doc.date)}</span>
+</div>
+<p class="text-[14px] text-on-surface-variant leading-relaxed">${escapeHtml(doc.description)}</p>
+<a class="inline-flex items-center gap-1 text-[12px] text-primary-container font-bold uppercase tracking-wider hover:gap-2 transition-all mt-2 w-max" href="documents/${escapeHtml(doc.file)}" rel="noopener" target="_blank">
+Ver documento
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>`;
+}
+
+function renderDocumentsSection(documents) {
+  if (documents.length === 0) {
+    return DOCUMENTS_PLACEHOLDER;
+  }
+  return `<div class="flex flex-col border border-surface-highest bg-white divide-y divide-surface-highest max-w-3xl">
+${documents.map(renderDocumentRow).join('\n')}
+</div>`;
+}
+
 function spliceMarked(filePath, marker, content) {
   const html = fs.readFileSync(filePath, 'utf8');
   const startTag = `<!-- ${marker}:START`;
@@ -163,5 +199,7 @@ module.exports = {
   renderCasoModal,
   renderCasosCards,
   renderCasosModals,
+  renderDocumentRow,
+  renderDocumentsSection,
   spliceMarked,
 };
