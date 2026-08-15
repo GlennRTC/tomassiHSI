@@ -127,3 +127,29 @@ test('renderDocumentRow escapes document fields', () => {
   assert.match(html, /A &amp; B/);
   assert.match(html, /&lt;script&gt;/);
 });
+
+const { execFileSync } = require('child_process');
+
+test('main() reads data files and splices into both HTML files end to end', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'build-content-main-test-'));
+  fs.mkdirSync(path.join(dir, 'data'));
+  fs.writeFileSync(path.join(dir, 'data', 'casos.json'), JSON.stringify([SAMPLE_CASO]));
+  fs.writeFileSync(path.join(dir, 'data', 'documents.json'), JSON.stringify([]));
+  fs.writeFileSync(
+    path.join(dir, 'index.html'),
+    '<section id="projects">\n<!-- CASOS_CARDS:START -->\n<!-- CASOS_CARDS:END -->\n</section>\n<!-- CASOS_MODALS:START -->\n<!-- CASOS_MODALS:END -->\n'
+  );
+  fs.writeFileSync(
+    path.join(dir, 'docs.html'),
+    '<section id="docs">\n<!-- DOCUMENTS:START -->\n<!-- DOCUMENTS:END -->\n</section>\n'
+  );
+  fs.copyFileSync(path.join(__dirname, 'build-content.js'), path.join(dir, 'build-content.js'));
+
+  execFileSync('node', ['build-content.js'], { cwd: dir });
+
+  const index = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
+  const docs = fs.readFileSync(path.join(dir, 'docs.html'), 'utf8');
+  assert.match(index, /Título de prueba/);
+  assert.match(index, /case-modal/);
+  assert.match(docs, /Próximamente/);
+});

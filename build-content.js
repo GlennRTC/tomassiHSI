@@ -192,6 +192,17 @@ function spliceMarked(filePath, marker, content) {
   fs.writeFileSync(filePath, before + content + '\n' + after, 'utf8');
 }
 
+function main() {
+  const casos = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/casos.json'), 'utf8'));
+  const documents = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/documents.json'), 'utf8'));
+
+  spliceMarked(path.join(ROOT, 'index.html'), 'CASOS_CARDS', renderCasosCards(casos));
+  spliceMarked(path.join(ROOT, 'index.html'), 'CASOS_MODALS', renderCasosModals(casos));
+  spliceMarked(path.join(ROOT, 'docs.html'), 'DOCUMENTS', renderDocumentsSection(documents));
+
+  console.log(`Generated ${casos.length} casos and ${documents.length} documents.`);
+}
+
 module.exports = {
   escapeHtml,
   renderTags,
@@ -203,3 +214,7 @@ module.exports = {
   renderDocumentsSection,
   spliceMarked,
 };
+
+if (require.main === module) {
+  main();
+}
