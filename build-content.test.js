@@ -117,6 +117,13 @@ test('renderDocumentsSection lists documents when present', () => {
   assert.doesNotMatch(html, /Próximamente/);
 });
 
+test('renderCasoModal escapes the id used in href/id/aria-labelledby attributes', () => {
+  const html = renderCasoModal({ ...SAMPLE_CASO, id: 'PRJ-001" onclick="x', title: 'A & B <b>' });
+  assert.doesNotMatch(html, /id="modal-prj-001" onclick="x"/);
+  assert.match(html, /id="modal-prj-001&quot; onclick=&quot;x"/);
+  assert.match(html, /A &amp; B &lt;b&gt;/);
+});
+
 test('renderDocumentRow escapes document fields', () => {
   const html = renderDocumentRow({
     title: 'A & B',
@@ -152,4 +159,31 @@ test('main() reads data files and splices into both HTML files end to end', () =
   assert.match(index, /Título de prueba/);
   assert.match(index, /case-modal/);
   assert.match(docs, /Próximamente/);
+});
+
+test('main() is idempotent: running the build twice produces identical output', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'build-content-idempotent-test-'));
+  fs.mkdirSync(path.join(dir, 'data'));
+  fs.writeFileSync(path.join(dir, 'data', 'casos.json'), JSON.stringify([SAMPLE_CASO]));
+  fs.writeFileSync(path.join(dir, 'data', 'documents.json'), JSON.stringify([]));
+  fs.writeFileSync(
+    path.join(dir, 'index.html'),
+    '<section id="projects">\n<!-- CASOS_CARDS:START -->\n<!-- CASOS_CARDS:END -->\n</section>\n<!-- CASOS_MODALS:START -->\n<!-- CASOS_MODALS:END -->\n'
+  );
+  fs.writeFileSync(
+    path.join(dir, 'docs.html'),
+    '<section id="docs">\n<!-- DOCUMENTS:START -->\n<!-- DOCUMENTS:END -->\n</section>\n'
+  );
+  fs.copyFileSync(path.join(__dirname, 'build-content.js'), path.join(dir, 'build-content.js'));
+
+  execFileSync('node', ['build-content.js'], { cwd: dir });
+  const indexFirst = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
+  const docsFirst = fs.readFileSync(path.join(dir, 'docs.html'), 'utf8');
+
+  execFileSync('node', ['build-content.js'], { cwd: dir });
+  const indexSecond = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
+  const docsSecond = fs.readFileSync(path.join(dir, 'docs.html'), 'utf8');
+
+  assert.equal(indexSecond, indexFirst);
+  assert.equal(docsSecond, docsFirst);
 });

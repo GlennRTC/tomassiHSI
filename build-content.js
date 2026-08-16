@@ -24,7 +24,7 @@ function renderTags(tags) {
 }
 
 function renderFeaturedCard(caso) {
-  const idLower = caso.id.toLowerCase();
+  const idLower = escapeHtml(caso.id.toLowerCase());
   return `<article class="col-span-1 md:col-span-12 bg-white border border-surface-highest relative overflow-hidden group">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
 <div class="p-6 md:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-surface-highest bg-white z-10">
@@ -55,7 +55,7 @@ Ver caso completo
 }
 
 function renderStandardCard(caso) {
-  const idLower = caso.id.toLowerCase();
+  const idLower = escapeHtml(caso.id.toLowerCase());
   return `<article class="col-span-1 md:col-span-6 bg-white border border-surface-highest relative group flex flex-col">
 <div class="h-48 relative border-b border-surface-highest bg-surface-low overflow-hidden flex items-center justify-center">
 <img class="w-full h-full object-cover filter grayscale opacity-80 hover:grayscale-0 transition-all duration-500" alt="${escapeHtml(caso.image.alt)}" src="${escapeHtml(caso.image.src)}"/>
@@ -86,7 +86,7 @@ function renderCasoCard(caso) {
 }
 
 function renderCasoModal(caso) {
-  const idLower = caso.id.toLowerCase();
+  const idLower = escapeHtml(caso.id.toLowerCase());
   return `<div class="case-modal hidden target:flex fixed inset-0 z-[100] items-start justify-center overflow-y-auto py-8 md:py-16 px-margin-mobile md:px-margin-desktop" id="modal-${idLower}">
 <a aria-label="Cerrar artículo" class="fixed inset-0 bg-on-surface/80" href="#projects"></a>
 <article aria-labelledby="modal-${idLower}-title" aria-modal="true" class="relative bg-white border border-surface-highest w-full max-w-3xl z-10" role="dialog">
