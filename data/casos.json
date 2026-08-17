@@ -2,7 +2,7 @@
   {
     "id": "PRJ-001",
     "featured": true,
-    "title": "Motor de correlación de datos LIS/HIS para detección de sepsis",
+    "title": "Interacion y correlacion de datos LIS/HIS para deteccion y alerta de pacientes en urgencias con sepsis",
     "summary": "Middleware que cruza resultados de laboratorio y datos hospitalarios en tiempo real para generar alertas clínicas tempranas.",
     "country": "Colombia",
     "period": "2025–2026",
@@ -21,7 +21,7 @@
   {
     "id": "PRJ-002",
     "featured": false,
-    "title": "Interfaz LIS → CDS con transformación de mensajes",
+    "title": "Interfaz LIS → CDS caracterización de resultados de laboratorio en pacientes con enfermedades crónicas",
     "summary": "Canal de integración que transforma resultados de laboratorio a formato SOAP/JSON y notifica automáticamente al sistema clínico.",
     "country": "México",
     "period": "2024–2026",
@@ -59,7 +59,7 @@
   {
     "id": "PRJ-004",
     "featured": false,
-    "title": "Canal HL7 a JSON con generación de estadísticas",
+    "title": "Canal HL7 a JSON para la alimentación de un dashboard de estadísticas de monitoreo",
     "summary": "Procesa mensajes HL7 entrantes, los transforma a JSON para el sistema de soporte de decisiones y genera estadísticas por fase de despliegue.",
     "country": "Colombia",
     "period": "2024–2026",
@@ -78,7 +78,7 @@
   {
     "id": "PRJ-005",
     "featured": false,
-    "title": "Estandarización de resultados de laboratorio por episodio",
+    "title": "Conexion de múltiples analizadores de laboratorio a un sistema centralizado para unificar resultados y automatizar procesos clínicos",
     "summary": "Transforma resultados de múltiples analizadores a una estructura JSON unificada por episodio clínico, lista para consumo por sistemas de decisión.",
     "country": "LATAM/Caribe",
     "period": "2025–2026",
