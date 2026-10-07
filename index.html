@@ -5,7 +5,9 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>TOMASSI HSI | Soluciones de Interoperabilidad en Salud</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://mermaid.live/embed.js" async></script>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
@@ -40,6 +42,9 @@
                 linear-gradient(to bottom, #f3f4f6 1px, transparent 1px);
             background-size: 32px 32px;
         }
+        .brand, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Bricolage Grotesque', 'JetBrains Mono', sans-serif;
+        }
         html {
             scroll-behavior: smooth;
         }
@@ -65,7 +70,7 @@
 <!-- Brand -->
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">terminal</span>
-<span class="text-[20px] font-bold tracking-tighter text-on-surface uppercase">TOMASSI HSI</span>
+<span class="brand text-[20px] font-bold tracking-tighter text-on-surface uppercase">TOMASSI HSI</span>
 </div>
 <!-- Desktop Nav -->
 <nav class="hidden md:flex gap-8">
@@ -194,8 +199,34 @@ Ver caso completo
 <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
 </a>
 </div>
-<div class="relative h-64 md:h-auto bg-surface-low border-l border-surface-highest overflow-hidden flex items-center justify-center p-8">
-<img class="w-full h-full object-contain filter grayscale contrast-125 hover:grayscale-0 transition-all duration-500" alt="Technical blueprint diagram showing system architecture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv50cREWQeIF7dsDUZoaL2FsUEAxXZmlhojz_q3qBCtyP2JExQv33EmzBbYFNBOsBlcPB98DzBbzMGmVnVGaAlur3zIgM9XDPBplzZMHt-l17m_gb5pux01bproNeXKnZQzNDy743huJKrSsncwrl0GwvZbzAAjelgAzGsvHIWxlwmtJTkE3plykP9ixhZAvArg0NmSEbyemjfV9xBD58PSuHgrCfvjP1E6uAU9OPGwpSKKmmfFVsUMg"/>
+<div class="relative h-auto bg-surface-low border-l border-surface-highest overflow-hidden flex items-center justify-center p-8">
+<mermaid-embed class="w-full" src="https://mermaid.live/embed?theme=default&amp;look=handDrawn&amp;mode=light" height="480">
+sequenceDiagram
+    participant LIS as Laboratory System
+    participant HIS as Hospital System
+    participant LISChannel as LIS_Listener
+    participant HISChannel as HIS_Listener
+    participant DB as Database
+    participant Correlation as Correlation_Engine
+    participant CDS as CDS System
+    participant Alerts as Alertas Channel
+
+    LIS-&gt;&gt;LISChannel: Send lab results
+    LISChannel-&gt;&gt;LISChannel: Transform data
+    LISChannel-&gt;&gt;DB: Store clinical episode
+    LISChannel-&gt;&gt;Correlation: Forward message
+
+    HIS-&gt;&gt;HISChannel: Send clinical data
+    HISChannel-&gt;&gt;HISChannel: Transform data
+    HISChannel-&gt;&gt;DB: Store clinical episode
+    HISChannel-&gt;&gt;Correlation: Forward message
+
+    Correlation-&gt;&gt;DB: Query for patient episodes
+    DB-&gt;&gt;Correlation: Return related episodes
+    Correlation-&gt;&gt;Correlation: Merge episodes
+    Correlation-&gt;&gt;CDS: Send consolidated data
+    CDS-&gt;&gt;Alerts: Generate clinical alerts
+</mermaid-embed>
 <div class="absolute inset-0 border-l-2 border-primary-container opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
 </div>
 </div>
@@ -253,7 +284,7 @@ Ver caso completo
 </article>
 <article class="col-span-1 md:col-span-6 bg-white border border-surface-highest relative group flex flex-col">
 <div class="h-48 relative border-b border-surface-highest bg-surface-low overflow-hidden flex items-center justify-center">
-<img class="w-full h-full object-cover filter grayscale opacity-80 hover:grayscale-0 transition-all duration-500" alt="Server racks in data center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-1T1rJzlGgYJk0aV7ynGDAEnJ_ww5yoN3OgY-Fz39iVCntHwq8Q-n9217W4qcadcj9E6eYP0l_QdtQ3mSr8Vfpu2ZTq5qrWJDk2B-tAKHUXmTRQGhOQ1GrRIzyUVRBR1Sye0OVe7CxqA07Sfq047Yvsvq08EpMXN5FLae9nRxSYZkOkPPHFTMQZW8zaM9TYNuGDvfnq392w04vgKi-8ByBbS_ixxMT7De8ul3jI0az3_YZisIswQ6Lg"/>
+<img class="w-full h-full object-cover filter grayscale opacity-80 hover:grayscale-0 transition-all duration-500" alt="Dos técnicos de laboratorio frente a un dashboard de alertas de resultados críticos" src="img/dashboard_lab_1.jpg"/>
 <span class="absolute top-4 left-4 bg-white border border-surface-highest px-2 py-1 text-[12px] text-primary-container z-10 font-bold shadow-sm">PRJ-004</span>
 </div>
 <div class="p-6 flex-grow flex flex-col bg-white">
@@ -279,7 +310,7 @@ Ver caso completo
 </article>
 <article class="col-span-1 md:col-span-6 bg-white border border-surface-highest relative group flex flex-col">
 <div class="h-48 relative border-b border-surface-highest bg-surface-low overflow-hidden flex items-center justify-center">
-<img class="w-full h-full object-cover filter grayscale opacity-80 hover:grayscale-0 transition-all duration-500" alt="Blueprint map of Latin America" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW79aZi1iD0YYp75Xp_FdeW-cdIqKhN3q5_Y3LcwYERsRxu-p9337v_MllRhfkMjVokmkAyLmzQTSrlNgEinA0dPf-ck63vTDgNhiddjFa_o5R2vrrcYgxljZ6o5Ih_meN_toFtNWF4s9ApBHqR81PqmDng8_FN6oTYArIgJGKNC1OvR7d9i-roJ0U6rYvHasy-kExMdq39OIbr1gXH2z0xESmhfat_z1-GaE-AZBDUOWY-W8LTG_fQA"/>
+<img class="w-full h-full object-cover filter grayscale opacity-80 hover:grayscale-0 transition-all duration-500" alt="Técnica de laboratorio cargando un tubo de muestra en un analizador clínico" src="img/instrument_lab_1.jpg"/>
 <span class="absolute top-4 left-4 bg-white border border-surface-highest px-2 py-1 text-[12px] text-primary-container z-10 font-bold shadow-sm">PRJ-005</span>
 </div>
 <div class="p-6 flex-grow flex flex-col bg-white">
@@ -313,8 +344,34 @@ Ver caso completo
 <a aria-label="Cerrar artículo" class="fixed md:absolute top-4 right-4 flex items-center justify-center w-11 h-11 border border-surface-highest bg-white hover:border-primary-container hover:text-primary-container transition-colors z-20" href="#projects">
 <span class="material-symbols-outlined">close</span>
 </a>
-<div class="h-56 md:h-72 bg-surface-low border-b border-surface-highest overflow-hidden">
-<img alt="Technical blueprint diagram showing system architecture" class="w-full h-full object-cover filter grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv50cREWQeIF7dsDUZoaL2FsUEAxXZmlhojz_q3qBCtyP2JExQv33EmzBbYFNBOsBlcPB98DzBbzMGmVnVGaAlur3zIgM9XDPBplzZMHt-l17m_gb5pux01bproNeXKnZQzNDy743huJKrSsncwrl0GwvZbzAAjelgAzGsvHIWxlwmtJTkE3plykP9ixhZAvArg0NmSEbyemjfV9xBD58PSuHgrCfvjP1E6uAU9OPGwpSKKmmfFVsUMg"/>
+<div class="bg-surface-low border-b border-surface-highest p-4 md:p-8">
+<mermaid-embed class="w-full" src="https://mermaid.live/embed?theme=default&amp;look=handDrawn&amp;mode=light" height="480">
+sequenceDiagram
+    participant LIS as Laboratory System
+    participant HIS as Hospital System
+    participant LISChannel as LIS_Listener
+    participant HISChannel as HIS_Listener
+    participant DB as Database
+    participant Correlation as Correlation_Engine
+    participant CDS as CDS System
+    participant Alerts as Alertas Channel
+
+    LIS-&gt;&gt;LISChannel: Send lab results
+    LISChannel-&gt;&gt;LISChannel: Transform data
+    LISChannel-&gt;&gt;DB: Store clinical episode
+    LISChannel-&gt;&gt;Correlation: Forward message
+
+    HIS-&gt;&gt;HISChannel: Send clinical data
+    HISChannel-&gt;&gt;HISChannel: Transform data
+    HISChannel-&gt;&gt;DB: Store clinical episode
+    HISChannel-&gt;&gt;Correlation: Forward message
+
+    Correlation-&gt;&gt;DB: Query for patient episodes
+    DB-&gt;&gt;Correlation: Return related episodes
+    Correlation-&gt;&gt;Correlation: Merge episodes
+    Correlation-&gt;&gt;CDS: Send consolidated data
+    CDS-&gt;&gt;Alerts: Generate clinical alerts
+</mermaid-embed>
 </div>
 <div class="p-8 md:p-12">
 <div class="flex flex-wrap items-center justify-between gap-4 mb-6 border-b border-surface-highest pb-4">
@@ -450,7 +507,7 @@ Ver caso completo
 <span class="material-symbols-outlined">close</span>
 </a>
 <div class="h-56 md:h-72 bg-surface-low border-b border-surface-highest overflow-hidden">
-<img alt="Server racks in data center" class="w-full h-full object-cover filter grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-1T1rJzlGgYJk0aV7ynGDAEnJ_ww5yoN3OgY-Fz39iVCntHwq8Q-n9217W4qcadcj9E6eYP0l_QdtQ3mSr8Vfpu2ZTq5qrWJDk2B-tAKHUXmTRQGhOQ1GrRIzyUVRBR1Sye0OVe7CxqA07Sfq047Yvsvq08EpMXN5FLae9nRxSYZkOkPPHFTMQZW8zaM9TYNuGDvfnq392w04vgKi-8ByBbS_ixxMT7De8ul3jI0az3_YZisIswQ6Lg"/>
+<img alt="Dos técnicos de laboratorio frente a un dashboard de alertas de resultados críticos" class="w-full h-full object-cover filter grayscale" src="img/dashboard_lab_1.jpg"/>
 </div>
 <div class="p-8 md:p-12">
 <div class="flex flex-wrap items-center justify-between gap-4 mb-6 border-b border-surface-highest pb-4">
@@ -495,7 +552,7 @@ Ver caso completo
 <span class="material-symbols-outlined">close</span>
 </a>
 <div class="h-56 md:h-72 bg-surface-low border-b border-surface-highest overflow-hidden">
-<img alt="Blueprint map of Latin America" class="w-full h-full object-cover filter grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW79aZi1iD0YYp75Xp_FdeW-cdIqKhN3q5_Y3LcwYERsRxu-p9337v_MllRhfkMjVokmkAyLmzQTSrlNgEinA0dPf-ck63vTDgNhiddjFa_o5R2vrrcYgxljZ6o5Ih_meN_toFtNWF4s9ApBHqR81PqmDng8_FN6oTYArIgJGKNC1OvR7d9i-roJ0U6rYvHasy-kExMdq39OIbr1gXH2z0xESmhfat_z1-GaE-AZBDUOWY-W8LTG_fQA"/>
+<img alt="Técnica de laboratorio cargando un tubo de muestra en un analizador clínico" class="w-full h-full object-cover filter grayscale" src="img/instrument_lab_1.jpg"/>
 </div>
 <div class="p-8 md:p-12">
 <div class="flex flex-wrap items-center justify-between gap-4 mb-6 border-b border-surface-highest pb-4">
@@ -556,7 +613,7 @@ Ver caso completo
                             </li>
 <li class="flex items-center gap-3">
 <div class="w-2 h-2 bg-primary-container"></div>
-                                Diseño de Soluciones de Integración (HL7, FHIR, DICOM)
+                                Diseño de Soluciones de Integración de sistemas y analizadores (ASTM, HL7, FHIR, DICOM)
                             </li>
 <li class="flex items-center gap-3">
 <div class="w-2 h-2 bg-primary-container"></div>
@@ -580,11 +637,11 @@ Ver caso completo
 <ul class="flex flex-col gap-4 text-[14px] text-on-surface-variant">
 <li class="flex items-center gap-3">
 <div class="w-2 h-2 border-2 border-primary-container"></div>
-                                Desarrollo de Interfaces HL7 v2 y FHIR
+                                Desarrollo de Interfaces para sistemas y analizadores (ASTM, HL7 v2, FHIR, entro otros)
                             </li>
 <li class="flex items-center gap-3">
 <div class="w-2 h-2 border-2 border-primary-container"></div>
-                                Configuración de Motores de Integración (Mirth Connect, Rhapsody)
+                                Configuración de Motores de Integración (Mirth Connect, Eclipse OIE)
                             </li>
 <li class="flex items-center gap-3">
 <div class="w-2 h-2 border-2 border-primary-container"></div>

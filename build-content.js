@@ -23,6 +23,18 @@ function renderTags(tags) {
     .join('\n');
 }
 
+// ponytail: optional caso.diagram (array of Mermaid lines) replaces the image; needs embed.js in index.html <head>
+function renderDiagram(caso) {
+  return `<mermaid-embed class="w-full" src="https://mermaid.live/embed?theme=default&amp;look=handDrawn&amp;mode=light" height="480">
+${escapeHtml(caso.diagram.join('\n'))}
+</mermaid-embed>`;
+}
+
+function renderFeaturedVisual(caso) {
+  if (caso.diagram) return renderDiagram(caso);
+  return `<img class="w-full h-full object-contain filter grayscale contrast-125 hover:grayscale-0 transition-all duration-500" alt="${escapeHtml(caso.image.alt)}" src="${escapeHtml(caso.image.src)}"/>`;
+}
+
 function renderFeaturedCard(caso) {
   const idLower = escapeHtml(caso.id.toLowerCase());
   return `<article class="col-span-1 md:col-span-12 bg-white border border-surface-highest relative overflow-hidden group">
@@ -46,8 +58,8 @@ Ver caso completo
 <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
 </a>
 </div>
-<div class="relative h-64 md:h-auto bg-surface-low border-l border-surface-highest overflow-hidden flex items-center justify-center p-8">
-<img class="w-full h-full object-contain filter grayscale contrast-125 hover:grayscale-0 transition-all duration-500" alt="${escapeHtml(caso.image.alt)}" src="${escapeHtml(caso.image.src)}"/>
+<div class="relative ${caso.diagram ? 'h-auto' : 'h-64 md:h-auto'} bg-surface-low border-l border-surface-highest overflow-hidden flex items-center justify-center p-8">
+${renderFeaturedVisual(caso)}
 <div class="absolute inset-0 border-l-2 border-primary-container opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
 </div>
 </div>
@@ -93,9 +105,11 @@ function renderCasoModal(caso) {
 <a aria-label="Cerrar artículo" class="fixed md:absolute top-4 right-4 flex items-center justify-center w-11 h-11 border border-surface-highest bg-white hover:border-primary-container hover:text-primary-container transition-colors z-20" href="#projects">
 <span class="material-symbols-outlined">close</span>
 </a>
-<div class="h-56 md:h-72 bg-surface-low border-b border-surface-highest overflow-hidden">
+${caso.diagram
+    ? `<div class="bg-surface-low border-b border-surface-highest p-4 md:p-8">\n${renderDiagram(caso)}\n</div>`
+    : `<div class="h-56 md:h-72 bg-surface-low border-b border-surface-highest overflow-hidden">
 <img alt="${escapeHtml(caso.image.alt)}" class="w-full h-full object-cover filter grayscale" src="${escapeHtml(caso.image.src)}"/>
-</div>
+</div>`}
 <div class="p-8 md:p-12">
 <div class="flex flex-wrap items-center justify-between gap-4 mb-6 border-b border-surface-highest pb-4">
 <span class="text-[13px] text-primary-container font-bold">${escapeHtml(caso.id)}</span>

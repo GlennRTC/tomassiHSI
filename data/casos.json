@@ -11,6 +11,33 @@
       "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuCv50cREWQeIF7dsDUZoaL2FsUEAxXZmlhojz_q3qBCtyP2JExQv33EmzBbYFNBOsBlcPB98DzBbzMGmVnVGaAlur3zIgM9XDPBplzZMHt-l17m_gb5pux01bproNeXKnZQzNDy743huJKrSsncwrl0GwvZbzAAjelgAzGsvHIWxlwmtJTkE3plykP9ixhZAvArg0NmSEbyemjfV9xBD58PSuHgrCfvjP1E6uAU9OPGwpSKKmmfFVsUMg",
       "alt": "Technical blueprint diagram showing system architecture"
     },
+    "diagram": [
+      "sequenceDiagram",
+      "    participant LIS as Laboratory System",
+      "    participant HIS as Hospital System",
+      "    participant LISChannel as LIS_Listener",
+      "    participant HISChannel as HIS_Listener",
+      "    participant DB as Database",
+      "    participant Correlation as Correlation_Engine",
+      "    participant CDS as CDS System",
+      "    participant Alerts as Alertas Channel",
+      "",
+      "    LIS->>LISChannel: Send lab results",
+      "    LISChannel->>LISChannel: Transform data",
+      "    LISChannel->>DB: Store clinical episode",
+      "    LISChannel->>Correlation: Forward message",
+      "",
+      "    HIS->>HISChannel: Send clinical data",
+      "    HISChannel->>HISChannel: Transform data",
+      "    HISChannel->>DB: Store clinical episode",
+      "    HISChannel->>Correlation: Forward message",
+      "",
+      "    Correlation->>DB: Query for patient episodes",
+      "    DB->>Correlation: Return related episodes",
+      "    Correlation->>Correlation: Merge episodes",
+      "    Correlation->>CDS: Send consolidated data",
+      "    CDS->>Alerts: Generate clinical alerts"
+    ],
     "detail": {
       "contexto": "La sepsis es una de las principales causas de mortalidad hospitalaria evitable cuando se detecta tarde. Los resultados de laboratorio y los datos clínicos vivían en sistemas separados (LIS e HIS), sin correlación automática entre ambos. Desarrollado para un Hospital de 500 camas. Alrededor de 60 alertas por mes",
       "problema": "El HIS no tenía visibilidad en tiempo real sobre resultados de laboratorio críticos al momento de generarse.",
@@ -65,8 +92,8 @@
     "period": "2024–2026",
     "tags": ["Mirth Connect", "HL7", "JSON", "JavaScript"],
     "image": {
-      "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuC-1T1rJzlGgYJk0aV7ynGDAEnJ_ww5yoN3OgY-Fz39iVCntHwq8Q-n9217W4qcadcj9E6eYP0l_QdtQ3mSr8Vfpu2ZTq5qrWJDk2B-tAKHUXmTRQGhOQ1GrRIzyUVRBR1Sye0OVe7CxqA07Sfq047Yvsvq08EpMXN5FLae9nRxSYZkOkPPHFTMQZW8zaM9TYNuGDvfnq392w04vgKi-8ByBbS_ixxMT7De8ul3jI0az3_YZisIswQ6Lg",
-      "alt": "Server racks in data center"
+      "src": "img/dashboard_lab_1.jpg",
+      "alt": "Dos técnicos de laboratorio frente a un dashboard de alertas de resultados críticos"
     },
     "detail": {
       "contexto": "Herramienta de monitoreo y estadisticas.",
@@ -84,8 +111,8 @@
     "period": "2025–2026",
     "tags": ["HL7/ASTM", "Redes", "Administración de Windows"],
     "image": {
-      "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuBW79aZi1iD0YYp75Xp_FdeW-cdIqKhN3q5_Y3LcwYERsRxu-p9337v_MllRhfkMjVokmkAyLmzQTSrlNgEinA0dPf-ck63vTDgNhiddjFa_o5R2vrrcYgxljZ6o5Ih_meN_toFtNWF4s9ApBHqR81PqmDng8_FN6oTYArIgJGKNC1OvR7d9i-roJ0U6rYvHasy-kExMdq39OIbr1gXH2z0xESmhfat_z1-GaE-AZBDUOWY-W8LTG_fQA",
-      "alt": "Blueprint map of Latin America"
+      "src": "img/instrument_lab_1.jpg",
+      "alt": "Técnica de laboratorio cargando un tubo de muestra en un analizador clínico"
     },
     "detail": {
       "contexto": "Laboratorios de distintos países de LATAM/Caribe con múltiples analizadores, cada uno con su propio formato de salida.",

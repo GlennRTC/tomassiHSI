@@ -6,6 +6,7 @@
 <title>TOMASSI HSI | Documentos Técnicos</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
@@ -40,6 +41,9 @@
                 linear-gradient(to bottom, #f3f4f6 1px, transparent 1px);
             background-size: 32px 32px;
         }
+        .brand, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Bricolage Grotesque', 'JetBrains Mono', sans-serif;
+        }
         html {
             scroll-behavior: smooth;
         }
@@ -62,7 +66,7 @@
 <!-- Brand -->
 <a class="flex items-center gap-2" href="index.html">
 <span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">terminal</span>
-<span class="text-[20px] font-bold tracking-tighter text-on-surface uppercase">TOMASSI HSI</span>
+<span class="brand text-[20px] font-bold tracking-tighter text-on-surface uppercase">TOMASSI HSI</span>
 </a>
 <!-- Desktop Nav -->
 <nav class="hidden md:flex gap-8">
